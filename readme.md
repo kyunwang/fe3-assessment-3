@@ -1,37 +1,23 @@
-# ![Assessment 3][banner]
+**Still a draft**
 
-This repository can be forked for [**assessment 3**][a2] of [frontend 3][fe3]
-at [**@CMDA**][cmda].
+# Title
 
-## TODO
+## Sources
+Map plotting possible thanks to the [snippet][mapSource] of [Mike Bostock][mapAuthor] under GNU@3
 
-*   [ ] [GitHub Pages](#github-pages)
-*   [ ] [Metadata](#metadata)
-*   [ ] [Issues](#issues)
-*   [ ] Replace this document in your fork with your own readme!
+Labeling from https://bl.ocks.org/SuYoungHong/f4a4d387ead290850e58bf92a6c4dbb6
 
-## GitHub Pages
+## Description
 
-Set up [GitHub Pages][pages] for this fork through the **Settings** pane.  Use
-the **Master branch** as its source.  Do not choose a Jekyll template.
+## Data
 
-## Metadata
+## Features
 
-Edit the **description** and **url** of your repository.  Click on edit above
-the green Clone or download button and fill in a correct description and use the
-`github.io` URL you just set up.
+## 'Features'
 
-## Issues
+## Tools used?
 
-Enable issues so we can give feedback by going to the settings tab of your fork
-and checking the box next to `issues`.
+## License
 
-[banner]: https://cdn.rawgit.com/cmda-fe3/logo/a4b0614/banner-assessment-3.svg
-
-[a2]: https://github.com/cmda-fe3/course-17-18/tree/master/assessment-3#description
-
-[fe3]: https://github.com/cmda-fe3
-
-[cmda]: https://github.com/cmda
-
-[pages]: https://pages.github.com
+[mapSource]: https://bl.ocks.org/mbostock/4090848
+[mapAuthor]: https://bl.ocks.org/mbostock
