@@ -1,5 +1,7 @@
 var cleanedData = [];
 var svg = d3.select('svg');
+var states = svg.append('g')
+	.attr('class', 'states')
 
 d3.csv('data/police_killings.csv', cleanData);
 

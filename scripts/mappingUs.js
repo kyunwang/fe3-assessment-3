@@ -23,16 +23,14 @@ d3.json('data/us.json', function (error, us) {
 	
 
 	// Creating the states
-	svg.append('g')
-		.attr('class', 'states')
-		.selectAll('path')
+	states.selectAll('path')
 		.data(topojson.feature(us, us.objects.states).features)
 		.enter()
 			.append('path')
 			.attr('d', path);
 
 	// Creating the state borders
-	svg.append("path")
+	states.append("path")
 		.attr('class', 'state-borders')
       .datum(topojson.mesh(us, us.objects.states, (a, b) => a !== b))
       .attr("d", path);
@@ -50,7 +48,7 @@ d3.json('data/us.json', function (error, us) {
 	
 
 	// Creating the state labels
-	svg.selectAll("text")
+	states.selectAll("text")
 		.data(allStates)
 		.enter()
 		.append("text")
@@ -61,7 +59,7 @@ d3.json('data/us.json', function (error, us) {
 			.attr("text-anchor","middle")
 
 	// Mapping the locations
-	svg.selectAll("circle")
+	states.selectAll("circle")
 		.data(cleanedData.map(d => d.longLat))
 		.enter()
 		.append("circle")
