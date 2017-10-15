@@ -1,7 +1,6 @@
 var cleanedData = [];
 var svg = d3.select('svg');
 
-
 d3.csv('data/police_killings.csv', cleanData);
 
 function cleanData(err, data) {
@@ -14,8 +13,7 @@ function cleanData(err, data) {
 			day: data[i].day,
 			month: data[i].month,
 			year: data[i].year,
-			latitude: data[i].latitude,
-			longitude: data[i].longitude,
+			longLat: [data[i].longitude, data[i].latitude],
 			gender: data[i].gender,
 			lawEnfAgency: data[i].lawenforcementagency,
 			name: data[i].name,
@@ -27,5 +25,5 @@ function cleanData(err, data) {
 		});
 
 	}
-	cleanedData.columns = ['age', 'armed', 'cause', 'city', 'day', 'month', 'year', 'latitude', 'longitude', 'gender', 'lawEnfAgency', 'name', 'victimAddress', 'race', 'stateId', 'countyId', 'state'];
+	cleanedData.columns = ['age', 'armed', 'cause', 'city', 'day', 'month', 'year', 'longLat', 'gender', 'lawEnfAgency', 'name', 'victimAddress', 'race', 'stateId', 'countyId', 'state'];
 }
