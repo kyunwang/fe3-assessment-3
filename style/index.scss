@@ -29,7 +29,7 @@ svg {
 	min-width: 400px;
 }
 
-.container-filter {
+.container-utility {
 	display: flex;
 	flex: 1;
 	flex-direction: column;
@@ -45,6 +45,8 @@ svg {
 =================*/
 
 .container-filter {
+	flex: 2;
+
 	> button{
 		border: 1px solid #3a3a3a;
 		border-radius: 2px;
@@ -57,6 +59,16 @@ svg {
 	margin-top: 1em;
 	height: 5em;
 	border: 1px solid #000;
+}
+
+/*=================
+=== Piechart
+=================*/
+
+.container-pie {
+	flex: 1;
+
+	background: gold;
 }
 
 /*=================

@@ -1,3 +1,5 @@
 /local
 
+# css/sass
 index.css.map
+style/.sass-cache/*

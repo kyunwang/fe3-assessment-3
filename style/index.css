@@ -24,7 +24,7 @@ svg {
   width: 80%;
   min-width: 400px; }
 
-.container-filter {
+.container-utility {
   display: flex;
   flex: 1;
   flex-direction: column;
@@ -35,16 +35,25 @@ svg {
 /*=================
 === Filters styling
 =================*/
-.container-filter > button {
-  border: 1px solid #3a3a3a;
-  border-radius: 2px;
-  background: #fff; }
+.container-filter {
+  flex: 2; }
+  .container-filter > button {
+    border: 1px solid #3a3a3a;
+    border-radius: 2px;
+    background: #fff; }
 
 .imagePl {
   /* width:  */
   margin-top: 1em;
   height: 5em;
   border: 1px solid #000; }
+
+/*=================
+=== Piechart
+=================*/
+.container-pie {
+  flex: 1;
+  background: gold; }
 
 /*=================
 === From 
