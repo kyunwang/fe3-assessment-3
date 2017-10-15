@@ -1,0 +1,87 @@
+html {
+	font-family: "open sans", "helvetica", "sans-serif";
+	height: 100%;
+}
+
+body {
+	height: 100%;
+	margin: 0;
+}
+
+svg {
+	height: 100%;
+	width: 100%;
+	min-width: 400px;
+}
+
+/*=================
+=== Layout
+=================*/
+.container {
+	display: flex;
+	height: 100%;	
+}
+
+.container-map {
+	flex: 1;
+	height: 80%;
+	width: 80%;
+	min-width: 400px;
+}
+
+.container-filter {
+	display: flex;
+	flex: 1;
+	flex-direction: column;
+	max-width: 15em;
+	padding: 1em;
+
+
+	background: yellow;
+}
+
+/*=================
+=== Filters styling
+=================*/
+
+.container-filter {
+	> button{
+		border: 1px solid #3a3a3a;
+		border-radius: 2px;
+		background: #fff;
+	}
+}
+
+.imagePl {
+	/* width:  */
+	margin-top: 1em;
+	height: 5em;
+	border: 1px solid #000;
+}
+
+/*=================
+=== From 
+=================*/
+.states {
+	fill: gray;
+
+	:hover {
+		fill: red;
+	}
+}
+
+.state-borders {
+	fill: none;
+	stroke: #fff;
+	stroke-width: 0.5px;
+	stroke-linejoin: round;
+	stroke-linecap: round;
+	pointer-events: none;
+}
+
+.state-label {
+	fill: #fff;
+	font-weight: 700;
+	font-size: .7em;
+}
+
