@@ -1,7 +1,10 @@
 var cleanedData = [];
 var svg = d3.select('svg');
 var states = svg.append('g')
-	.attr('class', 'states')
+	.attr('class', 'states');
+var width = parseInt(svg.style('width'), 10);
+var height = parseInt(svg.style('height'), 10);
+var locations;
 
 d3.csv('data/police_killings.csv', cleanData);
 

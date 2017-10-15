@@ -16,6 +16,8 @@ var path = d3.geoPath()
 projection
 	.scale(800)
 	.center([-100, 40.5]);
+	// .translate([width / 2, height / 2]);
+	
 
 
 d3.json('data/us.json', function (error, us) {
@@ -27,13 +29,14 @@ d3.json('data/us.json', function (error, us) {
 		.data(topojson.feature(us, us.objects.states).features)
 		.enter()
 			.append('path')
-			.attr('d', path);
+			.attr('d', path)
+			.on('click', clickZoom);
 
 	// Creating the state borders
-	states.append("path")
+	states.append('path')
 		.attr('class', 'state-borders')
       .datum(topojson.mesh(us, us.objects.states, (a, b) => a !== b))
-      .attr("d", path);
+      .attr('d', path);
 
 
 	// 
@@ -48,24 +51,35 @@ d3.json('data/us.json', function (error, us) {
 	
 
 	// Creating the state labels
-	states.selectAll("text")
+	states.selectAll('text')
 		.data(allStates)
 		.enter()
-		.append("text")
+		.append('text')
 			.text(d => d.info.state)
 			.attr('class', 'state-label')
-			.attr("x", d => path.centroid(d)[0])
-			.attr("y", d => path.centroid(d)[1])
-			.attr("text-anchor","middle")
+			.attr('x', d => path.centroid(d)[0])
+			.attr('y', d => path.centroid(d)[1])
+			.attr('text-anchor','middle');
 
 	// Mapping the locations
-	states.selectAll("circle")
+	states.selectAll('circle')
 		.data(cleanedData.map(d => d.longLat))
 		.enter()
-		.append("circle")
-			.attr("cx", d => parseInt(projection(d)[0], 10))
-			.attr("cy", d => parseInt(projection(d)[1], 10))
-			.attr("r", 3)
-			.attr("fill", "red")
+		.append('circle')
+			.attr('class', 'location')
+			.attr('cx', d => parseInt(projection(d)[0], 10))
+			.attr('cy', d => parseInt(projection(d)[1], 10))
+			.attr('r', 5)
+			.attr('fill', 'blue')
+			// .on('mouseenter', mouse)
+			// .on('mouseout', mouse2)
+			// .on('click', clickZoom)
 
+
+			// function mouse(d) {
+			// 	d3.select(this).attr('fill', 'red')
+			// }
+			// function mouse2(d) {
+			// 	d3.select(this).attr('fill', 'blue')
+			// }
 });

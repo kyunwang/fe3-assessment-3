@@ -36,8 +36,11 @@ svg {
 === Filters styling
 =================*/
 .container-filter {
-  flex: 2; }
+  display: flex;
+  flex: 2;
+  flex-direction: column; }
   .container-filter > button {
+    margin-bottom: 3px;
     border: 1px solid #3a3a3a;
     border-radius: 2px;
     background: #fff; }
@@ -60,7 +63,7 @@ svg {
 =================*/
 .states {
   fill: gray; }
-  .states :hover {
+  .states > path:hover {
     fill: red; }
 
 .state-borders {

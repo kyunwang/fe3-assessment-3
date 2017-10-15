@@ -45,13 +45,20 @@ svg {
 =================*/
 
 .container-filter {
+	display: flex;
 	flex: 2;
+	flex-direction: column;
 
 	> button{
+		margin-bottom: 3px;
 		border: 1px solid #3a3a3a;
 		border-radius: 2px;
 		background: #fff;
 	}
+}
+
+.location {
+	// pointer-events: none;
 }
 
 .imagePl {
@@ -77,7 +84,7 @@ svg {
 .states {
 	fill: gray;
 
-	:hover {
+	> path:hover {
 		fill: red;
 	}
 }
