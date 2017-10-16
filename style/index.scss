@@ -67,14 +67,26 @@ p {
 
 .container-filter {
 	display: flex;
-	flex: 2;
-	flex-direction: column;
+	// flex: 2;
+	flex-wrap: wrap;
 
 	> button{
+		flex: 1;
+		min-width: 5.5em;
+		margin: 0 .2em;
 		margin-bottom: 3px;
-		border: 1px solid #3a3a3a;
+		border: 1px solid gold;
 		border-radius: 2px;
-		background: #fff;
+		padding: 0.3em;
+		background: transparent;
+		color: #fff;
+
+		transition: background-color .2s ease-in;
+
+		&:hover {
+			background-color: gold;
+			color: #3a3a3a;
+		}
 	}
 }
 

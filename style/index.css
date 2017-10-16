@@ -53,13 +53,21 @@ p {
 =================*/
 .container-filter {
   display: flex;
-  flex: 2;
-  flex-direction: column; }
+  flex-wrap: wrap; }
   .container-filter > button {
+    flex: 1;
+    min-width: 5.5em;
+    margin: 0 .2em;
     margin-bottom: 3px;
-    border: 1px solid #3a3a3a;
+    border: 1px solid gold;
     border-radius: 2px;
-    background: #fff; }
+    padding: 0.3em;
+    background: transparent;
+    color: #fff;
+    transition: background-color .2s ease-in; }
+    .container-filter > button:hover {
+      background-color: gold;
+      color: #3a3a3a; }
 
 .locationDetail {
   flex: 1;
