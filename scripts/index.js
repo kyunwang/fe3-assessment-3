@@ -48,6 +48,6 @@ function cleanData(err, data) {
 
 	raceKeys = raceKeys.filter((d, i, self) => i === self.indexOf(d));
 
-	// renderPie();
+	renderPie();
 
 }

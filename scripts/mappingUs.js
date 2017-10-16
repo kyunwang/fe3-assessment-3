@@ -64,43 +64,59 @@ d3.json('data/us.json', function (error, us) {
 			.attr('y', d => mapPath.centroid(d)[1])
 			.attr('text-anchor','middle');
 
-			// Mapping the locations
-			states.selectAll('circle')
-			.data(cleanedData)
-			.enter()
-			.append('circle')
-				.attr('class', 'location')
-				.attr('cx', d => parseInt(projection(d.longLat)[0], 10))
-				.attr('cy', d => parseInt(projection(d.longLat)[1], 10))
-				.attr('r', 5)
-				.attr('fill', d => raceColor(d.race));
-			
-			
-	/*=================
-	=== Legend made thanks to: https://bl.ocks.org/mbostock/3887051
-	=================*/
-
-	var keys = cleanedData.columns.slice(1);
-	var legend = mapCon.append('g')
-		.attr('font-family', 'sans-serif')
-		.attr('font-size', 10)
-		.attr('text-anchor', 'end')
-		.selectAll('g')
-		.data(raceKeys)
+		// Mapping the locations
+		states.selectAll('circle')
+		.data(cleanedData)
 		.enter()
-		.append('g')
-			.attr('transform', (d, i) => 'translate(0,' + i * 20 + ')');
+		.append('circle')
+			.attr('class', 'location')
+			.attr('cx', d => parseInt(projection(d.longLat)[0], 10))
+			.attr('cy', d => parseInt(projection(d.longLat)[1], 10))
+			.attr('r', 5)
+			.attr('fill', d => raceColor(d.race))
 
-	legend.append('rect')
-		.attr('x', mapWidth - 19)
-		.attr('width', 19)
-		.attr('height', 19)
-		.attr('fill', raceColor);
 
-	legend.append('text')
-		.attr('x', mapWidth - 24)
-		.attr('y', 9.5)
-		.attr('dy', '0.32em')
-		.text(d => d);
-
+		renderMapLegend();
 });
+			
+
+/*=================
+=== Legend made thanks to: https://bl.ocks.org/mbostock/3887051
+=================*/
+function renderMapLegend() {
+
+		var keys = cleanedData.columns.slice(1);
+		var legend = mapCon.append('g')
+			.attr('font-family', 'sans-serif')
+			.attr('font-size', 10)
+			.attr('text-anchor', 'end')
+			.selectAll('g')
+			.data(raceKeys)
+			.enter()
+			.append('g')
+				.attr('transform', (d, i) => 'translate(0,' + i * 20 + ')');
+	
+		legend.append('rect')
+			.attr('x', mapWidth - 19)
+			.attr('width', 19)
+			.attr('height', 19)
+			.attr('fill', raceColor)
+			.on('mouseenter', d => highlight(d))
+	
+		legend.append('text')
+			.attr('x', mapWidth - 24)
+			.attr('y', 9.5)
+			.attr('dy', '0.32em')
+			.text(d => d);
+}
+
+/*=================
+=== Grace to Razpudding: https://github.com/Razpudding/fed3-d3events/blob/master/index.js
+=================*/
+function highlight(select) {
+	d3.selectAll('.location')
+		.classed('hide', d => {
+			console.log(d.race);
+			return d.race !== select;
+		});
+}
