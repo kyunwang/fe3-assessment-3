@@ -94,14 +94,14 @@ function renderMapLegend() {
 			.data(raceKeys)
 			.enter()
 			.append('g')
-				.attr('transform', (d, i) => 'translate(0,' + i * 20 + ')');
+				.attr('transform', (d, i) => `translate(-10, ${i * 22 + 10})`);
 	
 		legend.append('rect')
 			.attr('x', mapWidth - 19)
 			.attr('width', 19)
 			.attr('height', 19)
 			.attr('fill', raceColor)
-			.on('mouseenter', d => highlight(d))
+			// .on('mouseenter', d => highlight(d))
 	
 		legend.append('text')
 			.attr('x', mapWidth - 24)
@@ -113,10 +113,11 @@ function renderMapLegend() {
 /*=================
 === Grace to Razpudding: https://github.com/Razpudding/fed3-d3events/blob/master/index.js
 =================*/
-function highlight(select) {
-	d3.selectAll('.location')
-		.classed('hide', d => {
-			console.log(d.race);
-			return d.race !== select;
-		});
-}
+
+// function highlight(select) {
+// 	d3.selectAll('.location')
+// 		.classed('hide', d => {
+// 			console.log(d.race);
+// 			return d.race !== select;
+// 		});
+// }

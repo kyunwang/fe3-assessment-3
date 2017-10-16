@@ -5,7 +5,7 @@ filterButtons.on('click', filterCause);
 
 function filterCause(d) {
 	d3.selectAll('.location')
-		.classed('hide', d => this.value !== 'all' ?
+		.classed('hideC', d => this.value !== 'all' ?
 				this.value !== d.cause :
 				false)
 }
