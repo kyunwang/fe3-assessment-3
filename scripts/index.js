@@ -6,10 +6,9 @@ var states = svg.append('g')
 var width = parseInt(svg.style('width'), 10);
 var height = parseInt(svg.style('height'), 10);
 
-var locations;
-var locationColors;
 
 var raceKeys = []; 
+var raceColor = d3.scaleOrdinal(d3.schemeCategory10)
 
 
 // Below are the global vars

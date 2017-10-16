@@ -64,43 +64,45 @@ d3.json('data/us.json', function (error, us) {
 			.attr('y', d => path.centroid(d)[1])
 			.attr('text-anchor','middle');
 
-	// Mapping the locations
-	states.selectAll('circle')
-		.data(cleanedData.map(d => d.longLat))
-		.enter()
-		.append('circle')
-			.attr('class', 'location')
-			.attr('cx', d => parseInt(projection(d)[0], 10))
-			.attr('cy', d => parseInt(projection(d)[1], 10))
-			.attr('r', 5)
-			.attr('fill', 'blue')
-
-
+			// Mapping the locations
+			states.selectAll('circle')
+			.data(cleanedData)
+			.enter()
+			.append('circle')
+				.attr('class', 'location')
+				.attr('cx', d => parseInt(projection(d.longLat)[0], 10))
+				.attr('cy', d => parseInt(projection(d.longLat)[1], 10))
+				.attr('r', 5)
+				.attr('fill', d => raceColor(d.race));
+			
+			
 	/*=================
 	=== Legend made thanks to: https://bl.ocks.org/mbostock/3887051
 	=================*/
-		var colorScale = d3.scaleOrdinal(d3.schemeCategory10)
 
 	var keys = cleanedData.columns.slice(1);
-	var legend = svg.append("g")
-		.attr("font-family", "sans-serif")
-		.attr("font-size", 10)
-		.attr("text-anchor", "end")
-		.selectAll("g")
+	var legend = svg.append('g')
+		.attr('font-family', 'sans-serif')
+		.attr('font-size', 10)
+		.attr('text-anchor', 'end')
+		.selectAll('g')
 		.data(raceKeys)
 		.enter()
-		.append("g")
-			.attr("transform", function(d, i) { return "translate(0," + i * 20 + ")"; });
+		.append('g')
+			.attr('transform', (d, i) => 'translate(0,' + i * 20 + ')');
 
-	legend.append("rect")
-		.attr("x", width - 19)
-		.attr("width", 19)
-		.attr("height", 19)
-		.attr("fill", colorScale);
+	legend.append('rect')
+		.attr('x', width - 19)
+		.attr('width', 19)
+		.attr('height', 19)
+		.attr('fill', raceColor);
 
-	legend.append("text")
-		.attr("x", width - 24)
-		.attr("y", 9.5)
-		.attr("dy", "0.32em")
-		.text(function(d) { return d; });
+	legend.append('text')
+		.attr('x', width - 24)
+		.attr('y', 9.5)
+		.attr('dy', '0.32em')
+		.text(d => d);
+
+
+		
 });
