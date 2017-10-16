@@ -6,24 +6,25 @@
 === source: https://bl.ocks.org/SuYoungHong/f4a4d387ead290850e58bf92a6c4dbb6
 =================*/
 
+
 // To enable plotting with coordinates
 var projection = d3.geoMercator();
 
 var path = d3.geoPath()
-	.projection(projection)
-	.pointRadius(1.5);
+.projection(projection)
+.pointRadius(1.5);
 
 projection
-	.scale(800)
-	.center([-100, 40.5]);
-	// .translate([width / 2, height / 2]);
-	
-
+.scale(800)
+.center([-100, 40.5]);
+// .translate([width / 2, height / 2]);
 
 d3.json('data/us.json', function (error, us) {
 	if (error) throw error;
 	
-
+	/*=================
+	=== Creating the map
+	=================*/
 	// Creating the states
 	states.selectAll('path')
 		.data(topojson.feature(us, us.objects.states).features)
@@ -38,8 +39,10 @@ d3.json('data/us.json', function (error, us) {
       .datum(topojson.mesh(us, us.objects.states, (a, b) => a !== b))
       .attr('d', path);
 
+	/*=================
+	=== State labeling
+	=================*/
 
-	// 
 	getinfo = x => cleanedData.filter(
 		z => String(z.stateId) == x);
 	
@@ -71,15 +74,33 @@ d3.json('data/us.json', function (error, us) {
 			.attr('cy', d => parseInt(projection(d)[1], 10))
 			.attr('r', 5)
 			.attr('fill', 'blue')
-			// .on('mouseenter', mouse)
-			// .on('mouseout', mouse2)
-			// .on('click', clickZoom)
 
 
-			// function mouse(d) {
-			// 	d3.select(this).attr('fill', 'red')
-			// }
-			// function mouse2(d) {
-			// 	d3.select(this).attr('fill', 'blue')
-			// }
+	/*=================
+	=== Legend made thanks to: https://bl.ocks.org/mbostock/3887051
+	=================*/
+		var colorScale = d3.scaleOrdinal(d3.schemeCategory10)
+
+	var keys = cleanedData.columns.slice(1);
+	var legend = svg.append("g")
+		.attr("font-family", "sans-serif")
+		.attr("font-size", 10)
+		.attr("text-anchor", "end")
+		.selectAll("g")
+		.data(raceKeys)
+		.enter()
+		.append("g")
+			.attr("transform", function(d, i) { return "translate(0," + i * 20 + ")"; });
+
+	legend.append("rect")
+		.attr("x", width - 19)
+		.attr("width", 19)
+		.attr("height", 19)
+		.attr("fill", colorScale);
+
+	legend.append("text")
+		.attr("x", width - 24)
+		.attr("y", 9.5)
+		.attr("dy", "0.32em")
+		.text(function(d) { return d; });
 });

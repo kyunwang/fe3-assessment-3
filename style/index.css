@@ -20,7 +20,7 @@ svg {
 
 .container-map {
   flex: 1;
-  height: 80%;
+  height: 100%;
   width: 80%;
   min-width: 400px; }
 

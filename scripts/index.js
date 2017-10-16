@@ -1,11 +1,18 @@
+
 var cleanedData = [];
 var svg = d3.select('svg');
 var states = svg.append('g')
 	.attr('class', 'states');
 var width = parseInt(svg.style('width'), 10);
 var height = parseInt(svg.style('height'), 10);
-var locations;
 
+var locations;
+var locationColors;
+
+var raceKeys = []; 
+
+
+// Below are the global vars
 d3.csv('data/police_killings.csv', cleanData);
 
 function cleanData(err, data) {
@@ -31,4 +38,11 @@ function cleanData(err, data) {
 
 	}
 	cleanedData.columns = ['age', 'armed', 'cause', 'city', 'day', 'month', 'year', 'longLat', 'gender', 'lawEnfAgency', 'name', 'victimAddress', 'race', 'stateId', 'countyId', 'state'];
+
+	for(let i = 0; i < cleanedData.length; i++) {
+		raceKeys.push(cleanedData[i].race);
+	}
+
+	raceKeys = raceKeys.filter((d, i, self) => i === self.indexOf(d));
+
 }
