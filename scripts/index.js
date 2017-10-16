@@ -1,10 +1,11 @@
 
 var cleanedData = [];
-var svg = d3.select('svg');
-var states = svg.append('g')
+var mapCon = d3.select('#map-con');
+
+var states = mapCon.append('g')
 	.attr('class', 'states');
-var width = parseInt(svg.style('width'), 10);
-var height = parseInt(svg.style('height'), 10);
+var width = parseInt(mapCon.style('width'), 10);
+var height = parseInt(mapCon.style('height'), 10);
 
 
 var raceKeys = []; 

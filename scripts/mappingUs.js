@@ -81,7 +81,7 @@ d3.json('data/us.json', function (error, us) {
 	=================*/
 
 	var keys = cleanedData.columns.slice(1);
-	var legend = svg.append('g')
+	var legend = mapCon.append('g')
 		.attr('font-family', 'sans-serif')
 		.attr('font-size', 10)
 		.attr('text-anchor', 'end')
