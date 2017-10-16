@@ -1,11 +1,14 @@
 
 var cleanedData = [];
 var mapCon = d3.select('#map-con');
+var pieCon = d3.select('#pie-con');
 
 var states = mapCon.append('g')
 	.attr('class', 'states');
-var width = parseInt(mapCon.style('width'), 10);
-var height = parseInt(mapCon.style('height'), 10);
+var mapWidth = parseInt(mapCon.style('width'), 10);
+var mapHeight = parseInt(mapCon.style('height'), 10);
+var pieWidth = parseInt(pieCon.style('width'), 10);
+var pieHeight = parseInt(pieCon.style('height'), 10);
 
 
 var raceKeys = []; 
@@ -44,5 +47,7 @@ function cleanData(err, data) {
 	}
 
 	raceKeys = raceKeys.filter((d, i, self) => i === self.indexOf(d));
+
+	// renderPie();
 
 }

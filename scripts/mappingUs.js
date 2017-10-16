@@ -10,14 +10,14 @@
 // To enable plotting with coordinates
 var projection = d3.geoMercator();
 
-var path = d3.geoPath()
-.projection(projection)
-.pointRadius(1.5);
+var mapPath = d3.geoPath()
+	.projection(projection)
+	.pointRadius(1.5);
 
 projection
-.scale(800)
-.center([-100, 40.5]);
-// .translate([width / 2, height / 2]);
+	.scale(800)
+	.center([-100, 40.5]);
+// .translate([mapWidth / 2, mapHeight / 2]);
 
 d3.json('data/us.json', function (error, us) {
 	if (error) throw error;
@@ -30,14 +30,14 @@ d3.json('data/us.json', function (error, us) {
 		.data(topojson.feature(us, us.objects.states).features)
 		.enter()
 			.append('path')
-			.attr('d', path)
+			.attr('d', mapPath)
 			.on('click', clickZoom);
 
 	// Creating the state borders
 	states.append('path')
 		.attr('class', 'state-borders')
       .datum(topojson.mesh(us, us.objects.states, (a, b) => a !== b))
-      .attr('d', path);
+      .attr('d', mapPath);
 
 	/*=================
 	=== State labeling
@@ -60,8 +60,8 @@ d3.json('data/us.json', function (error, us) {
 		.append('text')
 			.text(d => d.info.state)
 			.attr('class', 'state-label')
-			.attr('x', d => path.centroid(d)[0])
-			.attr('y', d => path.centroid(d)[1])
+			.attr('x', d => mapPath.centroid(d)[0])
+			.attr('y', d => mapPath.centroid(d)[1])
 			.attr('text-anchor','middle');
 
 			// Mapping the locations
@@ -92,17 +92,15 @@ d3.json('data/us.json', function (error, us) {
 			.attr('transform', (d, i) => 'translate(0,' + i * 20 + ')');
 
 	legend.append('rect')
-		.attr('x', width - 19)
+		.attr('x', mapWidth - 19)
 		.attr('width', 19)
 		.attr('height', 19)
 		.attr('fill', raceColor);
 
 	legend.append('text')
-		.attr('x', width - 24)
+		.attr('x', mapWidth - 24)
 		.attr('y', 9.5)
 		.attr('dy', '0.32em')
 		.text(d => d);
 
-
-		
 });

@@ -6,10 +6,14 @@ body {
   height: 100%;
   margin: 0; }
 
-svg {
+#map-con {
   height: 100%;
   width: 100%;
   min-width: 400px; }
+
+#pie-con {
+  height: 100%;
+  width: 100%; }
 
 /*=================
 === Layout
