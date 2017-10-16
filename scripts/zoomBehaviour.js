@@ -18,13 +18,13 @@ function clickZoom(d) {
 	active.classed("active", false);
 	active = d3.select(this).classed("active", true);
  
-	var bounds = path.bounds(d),
+	var bounds = mapPath.bounds(d),
 		 dx = bounds[1][0] - bounds[0][0],
 		 dy = bounds[1][1] - bounds[0][1],
 		 x = (bounds[0][0] + bounds[1][0]) / 2,
 		 y = (bounds[0][1] + bounds[1][1]) / 2,
-		 scale = .8 / Math.max(dx / width, dy / height),
-		 translate = [width / 2 - scale * x, height / 2 - scale * y];
+		 scale = .8 / Math.max(dx / mapWidth, dy / mapHeight),
+		 translate = [mapWidth / 2 - scale * x, mapHeight / 2 - scale * y];
 
 	states.transition()
 		 .duration(1000)

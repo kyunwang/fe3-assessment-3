@@ -6,6 +6,11 @@ html {
 body {
 	height: 100%;
 	margin: 0;
+	background-color: #303030;
+}
+
+p {
+	margin: 0;
 }
 
 #map-con {
@@ -42,9 +47,19 @@ body {
 	max-width: 15em;
 	padding: 1em;
 
-
-	background: yellow;
+	background: #3a3a3a;
+	border-left: 2px solid gold;
+	// border-left: 3px solid #9f9f9f;
+	color: #fff;
 }
+
+/*=================
+=== Map styling
+=================*/
+.mapLegend {
+	fill: #fff;
+}
+
 
 /*=================
 === Filters styling
@@ -67,11 +82,30 @@ body {
 	// pointer-events: none;
 }
 
+.locationDetail {
+	flex: 1;
+	margin: 0.8em 0;
+	border: 1px solid gold;
+	border-radius: 3px;
+	padding: 1em;
+	background-color: #3a3a3a; // For the tooltip if we will use it
+	color: #fff;
+	p {
+		margin-bottom: 0.3em;
+	}
+	span {
+		font-weight: 300;
+	}
+	// background: red;
+	// height: 200px;
+	// width: 200px
+}
+
 .imagePl {
 	/* width:  */
 	margin-top: 1em;
 	height: 5em;
-	border: 1px solid #000;
+	border: 1px solid gold;
 }
 
 /*=================
@@ -88,10 +122,14 @@ body {
 === From 
 =================*/
 .states {
-	fill: gray;
+	fill: #6f6f6f;
+	
+	path {
+		transition: fill .2s ease-in;
 
-	> path:hover {
-		fill: red;
+		&:hover {
+			fill: #8f8f8f;
+		}
 	}
 }
 

@@ -64,8 +64,8 @@ d3.json('data/us.json', function (error, us) {
 			.attr('y', d => mapPath.centroid(d)[1])
 			.attr('text-anchor','middle');
 
-		// Mapping the locations
-		states.selectAll('circle')
+	// Mapping the locations
+	states.selectAll('circle')
 		.data(cleanedData)
 		.enter()
 		.append('circle')
@@ -74,9 +74,11 @@ d3.json('data/us.json', function (error, us) {
 			.attr('cy', d => parseInt(projection(d.longLat)[1], 10))
 			.attr('r', 5)
 			.attr('fill', d => raceColor(d.race))
+			.on('mouseenter', d => showMapTip(d)) // in detailView.js
+			.on('mouseout', d => hideMapTip(d)) // in detailView.js
 
 
-		renderMapLegend();
+	renderMapLegend();
 });
 			
 
@@ -104,6 +106,7 @@ function renderMapLegend() {
 			// .on('mouseenter', d => highlight(d))
 	
 		legend.append('text')
+		.attr('class', 'mapLegend')
 			.attr('x', mapWidth - 24)
 			.attr('y', 9.5)
 			.attr('dy', '0.32em')

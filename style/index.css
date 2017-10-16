@@ -4,6 +4,10 @@ html {
 
 body {
   height: 100%;
+  margin: 0;
+  background-color: #303030; }
+
+p {
   margin: 0; }
 
 #map-con {
@@ -34,7 +38,15 @@ body {
   flex-direction: column;
   max-width: 15em;
   padding: 1em;
-  background: yellow; }
+  background: #3a3a3a;
+  border-left: 2px solid gold;
+  color: #fff; }
+
+/*=================
+=== Map styling
+=================*/
+.mapLegend {
+  fill: #fff; }
 
 /*=================
 === Filters styling
@@ -49,11 +61,24 @@ body {
     border-radius: 2px;
     background: #fff; }
 
+.locationDetail {
+  flex: 1;
+  margin: 0.8em 0;
+  border: 1px solid gold;
+  border-radius: 3px;
+  padding: 1em;
+  background-color: #3a3a3a;
+  color: #fff; }
+  .locationDetail p {
+    margin-bottom: 0.3em; }
+  .locationDetail span {
+    font-weight: 300; }
+
 .imagePl {
   /* width:  */
   margin-top: 1em;
   height: 5em;
-  border: 1px solid #000; }
+  border: 1px solid gold; }
 
 /*=================
 === Piechart
@@ -66,9 +91,11 @@ body {
 === From 
 =================*/
 .states {
-  fill: gray; }
-  .states > path:hover {
-    fill: red; }
+  fill: #6f6f6f; }
+  .states path {
+    transition: fill .2s ease-in; }
+    .states path:hover {
+      fill: #8f8f8f; }
 
 .state-borders {
   fill: none;

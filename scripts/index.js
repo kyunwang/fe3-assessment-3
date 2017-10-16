@@ -32,7 +32,7 @@ function cleanData(err, data) {
 			gender: data[i].gender,
 			lawEnfAgency: data[i].lawenforcementagency,
 			name: data[i].name,
-			victimAdress: data[i].streetaddress,
+			location: data[i].streetaddress,
 			race: data[i].raceethnicity,
 			stateId: data[i].state_fp,
 			countyId: data[i].county_fp,
@@ -40,7 +40,7 @@ function cleanData(err, data) {
 		});
 
 	}
-	cleanedData.columns = ['age', 'armed', 'cause', 'city', 'day', 'month', 'year', 'longLat', 'gender', 'lawEnfAgency', 'name', 'victimAddress', 'race', 'stateId', 'countyId', 'state'];
+	cleanedData.columns = ['age', 'armed', 'cause', 'city', 'day', 'month', 'year', 'longLat', 'gender', 'lawEnfAgency', 'name', 'location', 'race', 'stateId', 'countyId', 'state'];
 
 	for(let i = 0; i < cleanedData.length; i++) {
 		raceKeys.push(cleanedData[i].race);
