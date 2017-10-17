@@ -72,7 +72,7 @@ d3.json('data/us.json', function (error, us) {
 			.attr('class', 'location')
 			.attr('cx', d => parseInt(projection(d.longLat)[0], 10))
 			.attr('cy', d => parseInt(projection(d.longLat)[1], 10))
-			.attr('r', 5)
+			.attr('r', 3)
 			.attr('fill', d => raceColor(d.race))
 			.on('mouseenter', d => showMapTip(d)) // in detailView.js
 			.on('mouseout', d => hideMapTip(d)) // in detailView.js
@@ -96,7 +96,7 @@ function renderMapLegend() {
 			.data(raceKeys)
 			.enter()
 			.append('g')
-				.attr('transform', (d, i) => `translate(-10, ${i * 22 + 10})`);
+				.attr('transform', (d, i) => `translate(-10, ${i * 22 + 10})`); // Positioning the legend
 	
 		legend.append('rect')
 			.attr('x', mapWidth - 19)
