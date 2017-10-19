@@ -76,9 +76,10 @@ d3.json('data/us.json', function (error, us) {
 			.attr('cy', d => parseInt(projection(d.longLat)[1], 10))
 			.attr('r', 3)
 			.attr('fill', d => raceColor(d.race))
-			.on('mouseenter', d => showMapTip(d)) // in detailView.js
-			.on('mouseout', d => hideMapTip(d)) // in detailView.js
-
+			.on('mouseenter', d => {
+				showDetail(d);
+				renderPie(d);
+			});
 
 	renderMapLegend();
 });
@@ -131,25 +132,8 @@ function highlight(select) {
 =================*/
 var details = d3.select('.locationDetail');
 
-var detailHtml;
-
-// Create a tooltip
-var mapTip = d3.tip()
-  .attr('class', 'locationDetail')
-  .offset([-10, 0])
-
-mapCon.call(mapTip); // Bind it to mapCon
-
-function showMapTip(d) {
+function showDetail(d) {
 	details.html(getHtml(d));
-	renderPie(d)
-
-	mapTip.html(getHtml(d));
-	mapTip.show();
-}
-
-function hideMapTip(d) {
-	mapTip.hide();
 }
 
 function getHtml(d) {
@@ -160,5 +144,5 @@ function getHtml(d) {
 		<p>Location: <span>${d.location}</span></p>
 		<p>Death cause: <span>${d.cause}</span></p>
 		<p>Was armed: <span>${d.armed}</span></p>
-`)
+`	);
 }
