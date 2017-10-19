@@ -80,6 +80,8 @@ d3.json('data/us.json', function (error, us) {
 			.attr('cx', d => parseInt(projection(d.longLat)[0], 10))
 			.attr('cy', d => parseInt(projection(d.longLat)[1], 10))
 			.attr('r', 3)
+			.attr('stroke-width', .3)
+			.attr('stroke', '#000')
 			.attr('fill', d => raceColor(d.race))
 			.on('mouseenter', d => {
 				showDetail(d);
@@ -140,13 +142,22 @@ function showDetail(d) {
 }
 
 function getHtml(d) {
+	console.log(d);
 	return decodeURIComponent(`
 		<p>Victim: <span>${d.name}</span></p>
 		<p>Ethnicity: <span>${d.race}</span></p>
 		<p>Date of death: <span>${d.month}/${d.day}/${d.year}</span></p>
-		<p>County: <span>${d.fipData[0].countyName}</span></p>
+		${showCounty(d)}
 		<p>Street: <span>${d.location}</span></p>
 		<p>Death cause: <span>${d.cause}</span></p>
 		<p>Was armed: <span>${d.armed}</span></p>
 `	);
+}
+
+function showCounty(data) {
+	console.log(data.fipData[0]);
+	if (data.fipData[0]) return `
+	<p>County: <span>${data.fipData[0].countyName}</span></p>`
+
+	return '';
 }

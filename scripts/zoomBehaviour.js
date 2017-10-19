@@ -34,7 +34,7 @@ function clickZoom(d) {
 	states.selectAll('circle')
 		.transition()
 		.duration(transDur)
-		.attr('r', .5)
+		.attr('r', .5);
  }
  
  function reset() {
@@ -42,7 +42,12 @@ function clickZoom(d) {
 	active = d3.select(null);
  
 	states.transition()
-		 .duration(1000)
-		 .style('stroke-width', '1.5px')
-		 .attr('transform', '');
+		.duration(1000)
+		.style('stroke-width', '1.5px')
+		.attr('transform', '');
+
+	states.selectAll('circle')
+		.transition()
+		.duration(transDur)
+		.attr('r', 3);
  }

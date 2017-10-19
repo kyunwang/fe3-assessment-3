@@ -50,6 +50,9 @@ p {
 .mapLegend {
   fill: #fff; }
 
+.state-label {
+  pointer-events: none; }
+
 /*=================
 === Filters styling
 =================*/
