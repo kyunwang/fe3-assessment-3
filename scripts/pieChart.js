@@ -5,6 +5,9 @@ var pieHeight = parseInt(pieCon.style('height'), 10);
 var pieGroup = pieCon.append('g')
 	.attr('transform', `translate(${pieWidth / 2}, ${pieHeight / 2})`);
 
+var pieTitle = d3.select('.container-pie')
+	.select('p')
+
 // Base for the piechart from: https://bl.ocks.org/mbostock/3887235
 function renderPie(newData) {
 		
@@ -17,6 +20,7 @@ function renderPie(newData) {
 			.key(d => d.race)
 			.rollup(d => d.length)
 			.entries(cleanedData);
+		pieTitle.text('Total death per ethnicity')
 	}
 
 
@@ -40,12 +44,20 @@ function renderPie(newData) {
 	pieChart.append('path')
 		.attr('d', piePath)
 		.attr('fill', d => raceColor(d.data.key))
-		// .on('mouseenter', d => highlight(d.data.key))
 		.on('mouseenter', d => showPieTip(d))
 
 
-
+	/*=================
+	=== Updating our piechart
+	=================*/
 	function updatePie() {
+		if (newData.fipData[0]) {
+			pieTitle.text(newData.fipData[0].countyName);
+		} else {
+			pieTitle.text('County not found');
+		}
+		// pieTitle.html('hello')
+		// console.log(pieTitle);
 		var pieRaceData = [
 			{percentage: true, key: 'White', value: newData.shareWhite},
 			{percentage: true, key: 'Hispanic/Latino', value: newData.shareHispanic},
@@ -71,7 +83,6 @@ function renderPie(newData) {
 		pieChart.append('path')
 			.attr('d', piePath)
 			.attr('fill', d => raceColor(d.data.key))
-			// .on('mouseenter', d => highlight(d.data.key))
 			.on('mouseenter', d => showPieTip(d))
 			.on('mouseout', d => hidePieTip(d))
 		
@@ -143,6 +154,6 @@ function getPieHtml(d) {
 	return `
 		<p>Total amount of deaths</p>
 		<p>Ethnicity: ${d.data.key}</p>
-		<p>Amount: ${d.data.value}</p>		
+		<p>Deaths: ${d.data.value}</p>		
 	`
 }

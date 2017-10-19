@@ -163,7 +163,6 @@ function renderMapLegend() {
 			.attr('width', 19)
 			.attr('height', 19)
 			.attr('fill', raceColor)
-			// .on('mouseenter', d => highlight(d))
 	
 		legend.append('text')
 			.attr('class', 'mapLegend')
