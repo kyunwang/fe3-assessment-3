@@ -38,7 +38,6 @@ d3.json('data/us.json', function (error, us) {
 			.append('path')
 			.attr('d', mapPath)
 			.on('click', clickZoom)
-			.on('mouseenter', d => showDeathState(d))
 
 	// Creating the state borders
 	states.append('path')
@@ -79,7 +78,7 @@ d3.json('data/us.json', function (error, us) {
 			.attr('class', 'location')
 			.attr('cx', d => parseInt(projection(d.longLat)[0], 10))
 			.attr('cy', d => parseInt(projection(d.longLat)[1], 10))
-			.attr('r', 3)
+			.attr('r', 4)
 			.attr('stroke-width', .3)
 			.attr('stroke', '#000')
 			.attr('fill', d => raceColor(d.race))
@@ -87,7 +86,62 @@ d3.json('data/us.json', function (error, us) {
 				showDetail(d);
 				renderPie(d);
 			});
+
+
+		/*=================
+		=== Updating out mappoint
+		=================*/
+		var filterButtons = d3.select('.container-filter')
+			.selectAll('button')
+			.on('click', updateMap);
+		
+		function updateMap(cause) {
+				
+			var fData = cleanedData.filter(d => this.value === 'all' ?
+				true :
+				this.value === d.cause);
+
+			var newLocation = states.selectAll('.location')
+				.data(fData);
+				
+			// This is what we will do to the new data we enter
+			newLocation.enter()
+				.append('circle')
+					.attr('class', 'location')
+					.attr('cx', d => parseInt(projection(d.longLat)[0], 10))
+					.attr('cy', d => parseInt(projection(d.longLat)[1], 10))
+					.attr('r', 0)
+					.attr('fill', '#fff')
+					// This has to put before the transition to take effect
+					.on('mouseenter', d => {
+						showDetail(d);
+						renderPie(d);
+					})
+					// Starting our transition
+					.transition()
+					.duration(transDur)
+					.ease(d3.easeBounce)
+					.attr('r', 4)
+					.attr('stroke-width', .3)
+					.attr('stroke', '#000')
+					.attr('fill', d => raceColor(d.race))
+
+			// This we will do to the data that stays
+			newLocation.transition()
+				.duration(transDur)
+				.attr('r', 4)
+			
+			// The stuff we will do with the data that exits
+			newLocation.exit()
+				.transition()
+				.duration(transDur)
+				.attr('r', 0)
+				.remove()
+
+		
+		}
 });
+
 			
 
 /*=================
@@ -155,7 +209,6 @@ function getHtml(d) {
 }
 
 function showCounty(data) {
-	console.log(data.fipData[0]);
 	if (data.fipData[0]) return `
 	<p>County: <span>${data.fipData[0].countyName}</span></p>`
 
