@@ -41,47 +41,12 @@ function renderPie(newData) {
 
 
 
-		var transContainer = pieGroup.transition()
-		.duration(1000);
-		transContainer.selectAll('.pie')
-		// Not adding for easier comparison
-		// .attr('height', 0)
-		// Need this to animate from up to down
-		// .attr('y', svgHeight)
-		.transition()
-		.duration(1000)
-			.attr('path', piePath)
-			.attr('fill', d => raceColor(d.data.key))
-			
-
-
-
-	// var label = d3.arc()
-	// 	.outerRadius(pieRadius - 40)
-	// 	.innerRadius(pieRadius - 40);
-
-	// pieChart.append('text')
-	// 	.attr('transform', function(d) { return 'translate(' + label.centroid(d) + ')'; })
-	// 	.attr('dy', '0.35em')
-	// 	.text(function(d) { return d.data.key; });
-
-	// renderPieRaceLegend(pieRaceData);
-
-
 	function updatePie() {
 		var pieRaceData = [
 			{key: 'White', value: newData.shareWhite},
 			{key: 'Hispanic/Latino', value: newData.shareHispanic},
 			{key: 'Black', value: newData.shareBlack}
 		]
-
-		// pieChart.data(pieScale(pieRaceData));
-		// pieChart.transition()
-		// 	.duration(1000)
-
-
-		console.log('hi');
-		console.log(pieRaceData);
 
 		var pieRadius = Math.min(pieWidth, pieHeight) / 3;
 		
@@ -129,7 +94,6 @@ function renderPieRaceLegend(d) {
 		.attr('dy', '0.32em')
 		.text(d => d.key);
 }
-
 
 
 
