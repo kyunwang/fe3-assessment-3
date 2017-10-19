@@ -37,15 +37,16 @@ function renderPie(newData) {
 	pieChart.append('path')
 		.attr('d', piePath)
 		.attr('fill', d => raceColor(d.data.key))
-		.on('mouseenter', d => highlight(d.data.key))
+		// .on('mouseenter', d => highlight(d.data.key))
+		.on('mouseenter', d => showPieTip(d))
 
 
 
 	function updatePie() {
 		var pieRaceData = [
-			{key: 'White', value: newData.shareWhite},
-			{key: 'Hispanic/Latino', value: newData.shareHispanic},
-			{key: 'Black', value: newData.shareBlack}
+			{percentage: true, key: 'White', value: newData.shareWhite},
+			{percentage: true, key: 'Hispanic/Latino', value: newData.shareHispanic},
+			{percentage: true, key: 'Black', value: newData.shareBlack}
 		]
 
 		var pieRadius = Math.min(pieWidth, pieHeight) / 3;
@@ -67,7 +68,10 @@ function renderPie(newData) {
 		pieChart.append('path')
 			.attr('d', piePath)
 			.attr('fill', d => raceColor(d.data.key))
-			.on('mouseenter', d => highlight(d.data.key))
+			// .on('mouseenter', d => highlight(d.data.key))
+			.on('mouseenter', d => showPieTip(d))
+			.on('mouseout', d => hidePieTip(d))
+		
 	}
 }
 
@@ -105,3 +109,35 @@ function arcTween(a) {
 	  return arc(i(t));
 	};
  }
+
+
+// Assigning and binding the pieTip
+var pieTip = d3.tip()
+	.attr('class', 'locationDetail')
+	.offset([-10, 0]);
+
+pieCon.call(pieTip);
+
+function showPieTip(d) {
+	pieTip.html(getPieHtml(d)); // Set the content to be shown
+	pieTip.show();
+}
+
+function hidePieTip(d) {
+	pieTip.hide();
+}
+
+
+function getPieHtml(d) {
+	if (d.data.percentage) return `
+		<p>The population of the county:</p>
+		<p>Ethnicity: ${d.data.key}</p>
+		<p>Percentage: ${d.data.value}%</p>
+	`
+
+	return `
+		<p>Total amount of deaths</p>
+		<p>Ethnicity: ${d.data.key}</p>
+		<p>Amount: ${d.data.value}</p>		
+	`
+}
