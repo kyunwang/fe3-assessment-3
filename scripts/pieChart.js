@@ -59,9 +59,9 @@ function renderPie(newData) {
 		// pieTitle.html('hello')
 		// console.log(pieTitle);
 		var pieRaceData = [
-			{percentage: true, key: 'White', value: newData.shareWhite},
-			{percentage: true, key: 'Hispanic/Latino', value: newData.shareHispanic},
-			{percentage: true, key: 'Black', value: newData.shareBlack}
+			{percentage: true, key: 'White', value: newData.shareWhite, countyPop: newData.countyPop},
+			{percentage: true, key: 'Hispanic/Latino', value: newData.shareHispanic, countyPop: newData.countyPop},
+			{percentage: true, key: 'Black', value: newData.shareBlack, countyPop: newData.countyPop}
 		]
 
 		var pieRadius = Math.min(pieWidth, pieHeight) / 3;
@@ -135,6 +135,7 @@ var pieTip = d3.tip()
 pieCon.call(pieTip);
 
 function showPieTip(d) {
+	console.log(d);
 	pieTip.html(getPieHtml(d)); // Set the content to be shown
 	pieTip.show();
 }
@@ -149,6 +150,7 @@ function getPieHtml(d) {
 		<p>The population of the county:</p>
 		<p>Ethnicity: ${d.data.key}</p>
 		<p>Percentage: ${d.data.value}%</p>
+		<p>Population: ${d.data.countyPop}</p>
 	`
 
 	return `

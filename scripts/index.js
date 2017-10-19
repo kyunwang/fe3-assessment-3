@@ -57,13 +57,14 @@ function cleanData(err, data) {
 			shareHispanic: data[i].share_hispanic,
 			shareWhite: data[i].share_white,
 			fullFip: data[i].state_fp+data[i].county_fp,
-			fipData: fipsCodes.filter(fips => fips.totalFip == (data[i].state_fp+data[i].county_fp))
+			fipData: fipsCodes.filter(fips => fips.totalFip == (data[i].state_fp+data[i].county_fp)),
+			countyPop: data[i]['pop']
 		});
 
 	}
 
 	// Not super to do it like this but time contrains mate
-	cleanedData.columns = ['age', 'armed', 'cause', 'city', 'day', 'month', 'year', 'longLat', 'gender', 'lawEnfAgency', 'name', 'location', 'race', 'stateId', 'countyId', 'state', 'shareBlack', 'shareHispanic', 'shareWhite', 'fullFip', 'fipData'];
+	cleanedData.columns = ['age', 'armed', 'cause', 'city', 'day', 'month', 'year', 'longLat', 'gender', 'lawEnfAgency', 'name', 'location', 'race', 'stateId', 'countyId', 'state', 'shareBlack', 'shareHispanic', 'shareWhite', 'fullFip', 'fipData', 'countyPop'];
 
 	for(let i = 0; i < cleanedData.length; i++) {
 		raceKeys.push(cleanedData[i].race);
