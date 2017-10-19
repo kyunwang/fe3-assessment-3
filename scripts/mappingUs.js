@@ -85,6 +85,7 @@ d3.json('data/us.json', function (error, us) {
 			.on('mouseenter', d => {
 				showDetail(d);
 				renderPie(d);
+				highlightLoc(d);				
 			});
 
 
@@ -116,6 +117,7 @@ d3.json('data/us.json', function (error, us) {
 					.on('mouseenter', d => {
 						showDetail(d);
 						renderPie(d);
+						highlightLoc(d);
 					})
 					// Starting our transition
 					.transition()
@@ -174,7 +176,7 @@ function renderMapLegend() {
 
 
 /*=================
-=== Setting our 
+=== Setting our details of the location
 =================*/
 var locDetail = d3.select('.location-detail');
 
@@ -199,4 +201,17 @@ function showCounty(data) {
 	<p>County: <span>${data.fipData[0].countyName}</span></p>`
 
 	return '';
+}
+
+/*=================
+=== Highlighting our location
+=================*/
+
+function highlightLoc(d) {
+	var radius = d3.event.target.attributes.r.value; // Getting the r value
+	d3.selectAll('.location')
+		.attr('r', data => {
+			if (radius == 4) return data === d ? '8' : '4'; // When not zoomed in
+			return data === d ? '2' : '.5'; // For when we are zommed in
+		});
 }

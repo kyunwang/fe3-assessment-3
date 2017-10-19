@@ -52,6 +52,6 @@ function clickZoom(d) {
 	states.selectAll('circle')
 		.transition()
 		.duration(transDur)
-		.attr('r', 3)
+		.attr('r', 4)
 		.attr('stroke-width', .3);
  }
