@@ -51,6 +51,10 @@ p {
 	border-left: 2px solid gold;
 	// border-left: 3px solid #9f9f9f;
 	color: #fff;
+
+	> p {
+		margin-bottom: 1em;
+	}
 }
 
 /*=================
@@ -70,7 +74,7 @@ p {
 	// flex: 2;
 	flex-wrap: wrap;
 
-	> button{
+	> button {
 		flex: 1;
 		min-width: 5.5em;
 		margin: 0 .2em;
@@ -98,7 +102,7 @@ p {
 	flex: 1;
 	margin: 0.8em 0;
 	border: 1px solid gold;
-	border-radius: 3px;
+	border-radius: 2px;
 	padding: 1em;
 	background-color: #3a3a3a; // For the tooltip if we will use it
 	color: #fff;
@@ -126,8 +130,16 @@ p {
 
 .container-pie {
 	flex: 1;
+	border: 1px solid gold;
+	border-radius: 2px;
+}
 
-	background: gold;
+/*=================
+=== Legend styling
+=================*/
+.legend {
+	font-size: 10px;
+	text-anchor: end;
 }
 
 /*=================
@@ -135,10 +147,8 @@ p {
 =================*/
 .states {
 	fill: #6f6f6f;
-	
 	path {
 		transition: fill .2s ease-in;
-
 		&:hover {
 			fill: #8f8f8f;
 		}
@@ -163,7 +173,9 @@ p {
 
 
 
-
+/*=================
+=== Testing
+=================*/
 .hide {
 	display: none;
 }

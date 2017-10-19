@@ -31,7 +31,8 @@ d3.json('data/us.json', function (error, us) {
 		.enter()
 			.append('path')
 			.attr('d', mapPath)
-			.on('click', clickZoom);
+			.on('click', clickZoom)
+			.on('mouseenter', d => showDeathState(d))
 
 	// Creating the state borders
 	states.append('path')
@@ -89,14 +90,12 @@ function renderMapLegend() {
 
 		var keys = cleanedData.columns.slice(1);
 		var legend = mapCon.append('g')
-			.attr('font-family', 'sans-serif')
-			.attr('font-size', 10)
-			.attr('text-anchor', 'end')
+			.attr('class', 'legend')
 			.selectAll('g')
-			.data(raceKeys)
+			.data(raceKeys.reverse())
 			.enter()
 			.append('g')
-				.attr('transform', (d, i) => `translate(-10, ${i * 22 + 10})`); // Positioning the legend
+				.attr('transform', (d, i) => `translate(-16, ${i * -22 + (mapHeight - 34)})`); // Positioning the legend
 	
 		legend.append('rect')
 			.attr('x', mapWidth - 19)
@@ -106,7 +105,7 @@ function renderMapLegend() {
 			// .on('mouseenter', d => highlight(d))
 	
 		legend.append('text')
-		.attr('class', 'mapLegend')
+			.attr('class', 'mapLegend')
 			.attr('x', mapWidth - 24)
 			.attr('y', 9.5)
 			.attr('dy', '0.32em')
@@ -117,10 +116,9 @@ function renderMapLegend() {
 === Grace to Razpudding: https://github.com/Razpudding/fed3-d3events/blob/master/index.js
 =================*/
 
-// function highlight(select) {
-// 	d3.selectAll('.location')
-// 		.classed('hide', d => {
-// 			console.log(d.race);
-// 			return d.race !== select;
-// 		});
-// }
+function highlight(select) {
+	d3.selectAll('.location')
+		.classed('hide', d => {
+			return d.race !== select;
+		});
+}

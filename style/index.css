@@ -41,6 +41,8 @@ p {
   background: #3a3a3a;
   border-left: 2px solid gold;
   color: #fff; }
+  .container-utility > p {
+    margin-bottom: 1em; }
 
 /*=================
 === Map styling
@@ -73,7 +75,7 @@ p {
   flex: 1;
   margin: 0.8em 0;
   border: 1px solid gold;
-  border-radius: 3px;
+  border-radius: 2px;
   padding: 1em;
   background-color: #3a3a3a;
   color: #fff; }
@@ -93,7 +95,15 @@ p {
 =================*/
 .container-pie {
   flex: 1;
-  background: gold; }
+  border: 1px solid gold;
+  border-radius: 2px; }
+
+/*=================
+=== Legend styling
+=================*/
+.legend {
+  font-size: 10px;
+  text-anchor: end; }
 
 /*=================
 === From 
@@ -118,6 +128,9 @@ p {
   font-weight: 700;
   font-size: .7em; }
 
+/*=================
+=== Testing
+=================*/
 .hide {
   display: none; }
 

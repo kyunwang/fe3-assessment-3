@@ -9,3 +9,13 @@ function filterCause(d) {
 				this.value !== d.cause :
 				false)
 }
+
+
+
+
+function showDeathState(d) {
+	let me = cleanedData.filter(data => {
+		return parseInt(data.stateId, 10) === d.id;
+	});
+	console.log(me);
+}

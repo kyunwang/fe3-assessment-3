@@ -14,7 +14,7 @@ var mapTip = d3.tip()
 mapCon.call(mapTip); // Bind it to mapCon
 
 function showMapTip(d) {
-	details.html(getHtml(d))
+	details.html(getHtml(d));
 
 	mapTip.html(getHtml(d));
 	mapTip.show();
