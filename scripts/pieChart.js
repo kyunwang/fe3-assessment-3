@@ -1,3 +1,6 @@
+var pieCon = d3.select('#pie-con');
+var pieWidth = parseInt(pieCon.style('width'), 10);
+var pieHeight = parseInt(pieCon.style('height'), 10);
 
 var pieGroup = pieCon.append('g')
 	.attr('transform', `translate(${pieWidth / 2}, ${pieHeight / 2})`);
@@ -100,8 +103,6 @@ function renderPieRaceLegend(d) {
 }
 
 
-
-
 function arcTween(a) {
 	var i = d3.interpolate(this._current, a);
 	this._current = i(0);
@@ -111,9 +112,13 @@ function arcTween(a) {
  }
 
 
-// Assigning and binding the pieTip
+/*=================
+=== Pie chart tooltip
+=== Tooltip by grace of cmda-fe3: https://github.com/cmda-fe3/course-17-18/tree/master/site/class-4/tip
+=================*/
+
 var pieTip = d3.tip()
-	.attr('class', 'locationDetail')
+	.attr('class', 'location-detail')
 	.offset([-10, 0]);
 
 pieCon.call(pieTip);

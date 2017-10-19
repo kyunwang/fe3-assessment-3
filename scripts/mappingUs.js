@@ -5,6 +5,12 @@
 === For labeling
 === source: https://bl.ocks.org/SuYoungHong/f4a4d387ead290850e58bf92a6c4dbb6
 =================*/
+var mapCon = d3.select('#map-con');
+var mapWidth = parseInt(mapCon.style('width'), 10);
+var mapHeight = parseInt(mapCon.style('height'), 10);
+
+var states = mapCon.append('g')
+	.attr('class', 'states');
 
 
 // To enable plotting with coordinates
@@ -19,14 +25,13 @@ projection
 	.center([-100, 40.5]);
 // .translate([mapWidth / 2, mapHeight / 2]);
 
+/*=================
+=== Creating the map
+=================*/
 d3.json('data/us.json', function (error, us) {
 	if (error) throw error;
-	
-	/*=================
-	=== Creating the map
-	=================*/
-	// Creating the states
-	
+
+	// Creating the states	
 	states.selectAll('path')
 		.data(topojson.feature(us, us.objects.states).features)
 		.enter()
@@ -80,8 +85,6 @@ d3.json('data/us.json', function (error, us) {
 				showDetail(d);
 				renderPie(d);
 			});
-
-	renderMapLegend();
 });
 			
 
@@ -128,12 +131,12 @@ function highlight(select) {
 
 
 /*=================
-=== Tooltip by grace of cmda-fe3: https://github.com/cmda-fe3/course-17-18/tree/master/site/class-4/tip
+=== Setting our 
 =================*/
-var details = d3.select('.locationDetail');
+var locDetail = d3.select('.location-detail');
 
 function showDetail(d) {
-	details.html(getHtml(d));
+	locDetail.html(getHtml(d));
 }
 
 function getHtml(d) {
@@ -141,7 +144,8 @@ function getHtml(d) {
 		<p>Victim: <span>${d.name}</span></p>
 		<p>Ethnicity: <span>${d.race}</span></p>
 		<p>Date of death: <span>${d.month}/${d.day}/${d.year}</span></p>
-		<p>Location: <span>${d.location}</span></p>
+		<p>County: <span>${d.fipData[0].countyName}</span></p>
+		<p>Street: <span>${d.location}</span></p>
 		<p>Death cause: <span>${d.cause}</span></p>
 		<p>Was armed: <span>${d.armed}</span></p>
 `	);

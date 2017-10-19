@@ -1,24 +1,39 @@
+/*=================
+=== Global vars
+=================*/
 
-var cleanedData = [];
-var mapCon = d3.select('#map-con');
-var pieCon = d3.select('#pie-con');
+var cleanedData = []; // Our main array for all the data
+var raceKeys = []; // Array to save the races in
+var raceColor = d3.scaleOrdinal(d3.schemeCategory10); // Our color scale for the races
+var fipsCodes; // To save our fips info in
 
-var states = mapCon.append('g')
-	.attr('class', 'states');
-
-var mapWidth = parseInt(mapCon.style('width'), 10);
-var mapHeight = parseInt(mapCon.style('height'), 10);
-var pieWidth = parseInt(pieCon.style('width'), 10);
-var pieHeight = parseInt(pieCon.style('height'), 10);
-
-var raceKeys = []; 
-var raceColor = d3.scaleOrdinal(d3.schemeCategory10)
-var fipsCodes;
+var transDur = 1000;
+var transDelay = 50;
 
 
-// Below are the global vars
+/*=================
+=== Getting the FIP codes of US
+=================*/
+d3.text('../data/us_fips.txt').get(getFips);
+function getFips(err, doc) {
+	fipsCodes = d3.csvParseRows(doc, mapFips);
+	function mapFips(d) {
+		return {
+			state: d[0],
+			stateId: d[1],
+			countyId: parseInt(d[2], 10), // Removing the 0's on the start
+			countyName: d[3],
+			totalFip: d[1]+d[2] // Get the totalfip statefip + countyfip
+		}
+	}
+}
+
+
+/*=================
+=== Basic cleaning our maindata for use
+=== Creating our global vars for use
+=================*/
 d3.csv('data/police_killings.csv', cleanData);
-
 function cleanData(err, data) {
 	for (let i = 0; i < data.length; i++) {
 		cleanedData.push({
@@ -42,12 +57,13 @@ function cleanData(err, data) {
 			shareHispanic: data[i].share_hispanic,
 			shareWhite: data[i].share_white,
 			fullFip: data[i].state_fp+data[i].county_fp,
+			fipData: fipsCodes.filter(fips => fips.totalFip == (data[i].state_fp+data[i].county_fp))
 		});
 
 	}
 
 	// Not super to do it like this but time contrains mate
-	cleanedData.columns = ['age', 'armed', 'cause', 'city', 'day', 'month', 'year', 'longLat', 'gender', 'lawEnfAgency', 'name', 'location', 'race', 'stateId', 'countyId', 'state'];
+	cleanedData.columns = ['age', 'armed', 'cause', 'city', 'day', 'month', 'year', 'longLat', 'gender', 'lawEnfAgency', 'name', 'location', 'race', 'stateId', 'countyId', 'state', 'shareBlack', 'shareHispanic', 'shareWhite', 'fullFip', 'fipData'];
 
 	for(let i = 0; i < cleanedData.length; i++) {
 		raceKeys.push(cleanedData[i].race);
@@ -55,23 +71,7 @@ function cleanData(err, data) {
 
 	raceKeys = raceKeys.filter((d, i, self) => i === self.indexOf(d));
 
-	renderPie();
-}
-
-
-/*=================
-=== Getting the FIP codes of US
-=================*/
-d3.text('../data/us_fips.txt').get(getFips);
-function getFips(err, doc) {
-	fipsCodes = d3.csvParseRows(doc, map);
-	function map(d) {
-		return {
-			state: d[0],
-			stateId: d[1],
-			countyId: parseInt(d[2], 10), // Removing the 0's on the start
-			countyName: d[3],
-			totalFip: d[1]+d[2] // Get the totalfip statefip + countyfip
-		}
-	}
+	// Execute thee functions when our cleaning is done
+	renderPie(); // Initial render of the piechart (total deaths/killings)
+	renderMapLegend(); // Render our legend for the map
 }

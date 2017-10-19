@@ -71,7 +71,7 @@ p {
       background-color: gold;
       color: #3a3a3a; }
 
-.locationDetail {
+.location-detail {
   flex: 1;
   margin: 0.8em 0;
   border: 1px solid gold;
@@ -79,9 +79,9 @@ p {
   padding: 1em;
   background-color: #3a3a3a;
   color: #fff; }
-  .locationDetail p {
+  .location-detail p {
     margin-bottom: 0.3em; }
-  .locationDetail span {
+  .location-detail span {
     font-weight: 300; }
 
 .imagePl {
