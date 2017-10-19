@@ -27,9 +27,26 @@ Filtering by ethnicity via the piechart (not ready)
 ## Tools used?
 
 ## Problems encountered
-The official data for the us map from D3 was faulty and I have wasted some hours trying to fix that and searching for a working dataset.
+The 'official' data for the us map from D3 was faulty and I have wasted some hours trying to fix that and searching for a working dataset.
 
 Plotting the locations/circles on the map.
+
+### Using exit()
+I finally understand how to implement exit.
+To implement `exit()` you will have to add the `enter()` on a different line than the `data()`.
+
+Not like this
+```
+var newLocation = states.selectAll('.location')
+	.data(fData)
+	.enter();
+```
+But like this
+```
+var newLocation = states.selectAll('.location')
+	.data(fData);
+```
+
 
 ## Known bugs
 - After zooming in by clicking a state. When you zoom out it will be jumpy.
