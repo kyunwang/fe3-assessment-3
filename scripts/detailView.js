@@ -26,7 +26,7 @@ function hideMapTip(d) {
 }
 
 function getHtml(d) {
-	return decodeURI(`
+	return decodeURIComponent(`
 		<p>Victim: <span>${d.name}</span></p>
 		<p>Ethnicity: <span>${d.race}</span></p>
 		<p>Date of death: <span>${d.month}/${d.day}/${d.year}</span></p>

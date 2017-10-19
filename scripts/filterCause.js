@@ -18,6 +18,6 @@ function showDeathState(d) {
 	let me = fipsCodes.filter(fips => {
 		return fips.totalFip == d.id;
 	});
-	console.log(me);
+	// console.log(me);
 	// console.log(fipsCodes);
 }

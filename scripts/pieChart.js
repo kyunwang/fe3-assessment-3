@@ -2,31 +2,18 @@
 var pieGroup = pieCon.append('g')
 	.attr('transform', `translate(${pieWidth / 2}, ${pieHeight / 2})`);
 
-// piechart: https://bl.ocks.org/mbostock/3887235
+// Base for the piechart from: https://bl.ocks.org/mbostock/3887235
 function renderPie(newData) {
-	// https://stackoverflow.com/questions/33852847/how-to-create-d3-pie-chart-with-percentage-from-non-number-values
-
-
 		
-	// Nest the data on basis of the given key race and return the amount of race as value
 	if (newData) {
-		console.log('mew');
-		// var pieRaceData = newData;
-		var pieRaceData = d3.nest()
-			.key(d => {
-				console.log(d);
-				return d.shareWhite})
-			.entries(newData);
-			console.log(11, pieRaceData);
-
-			// Being compicated
-			return updatePie();
+		return updatePie();
 	} else {
+		// Nest the data on basis of the given key race and return the amount of race as value
+		// https://stackoverflow.com/questions/33852847/how-to-create-d3-pie-chart-with-percentage-from-non-number-values 
 		var pieRaceData = d3.nest()
 			.key(d => d.race)
 			.rollup(d => d.length)
 			.entries(cleanedData);
-			console.log(pieRaceData);
 	}
 
 
@@ -51,7 +38,22 @@ function renderPie(newData) {
 		.attr('d', piePath)
 		.attr('fill', d => raceColor(d.data.key))
 		.on('mouseenter', d => highlight(d.data.key))
-	
+
+
+
+		var transContainer = pieGroup.transition()
+		.duration(1000);
+		transContainer.selectAll('.pie')
+		// Not adding for easier comparison
+		// .attr('height', 0)
+		// Need this to animate from up to down
+		// .attr('y', svgHeight)
+		.transition()
+		.duration(1000)
+			.attr('path', piePath)
+			.attr('fill', d => raceColor(d.data.key))
+			
+
 
 
 	// var label = d3.arc()
@@ -66,14 +68,41 @@ function renderPie(newData) {
 	// renderPieRaceLegend(pieRaceData);
 
 
-	function updatePie(data) {
+	function updatePie() {
+		var pieRaceData = [
+			{key: 'White', value: newData.shareWhite},
+			{key: 'Hispanic/Latino', value: newData.shareHispanic},
+			{key: 'Black', value: newData.shareBlack}
+		]
+
+		// pieChart.data(pieScale(pieRaceData));
+		// pieChart.transition()
+		// 	.duration(1000)
+
+
 		console.log('hi');
-		console.log(pieRadius);
-		// pieChart.selectAll('pie')
-		// 	.data(pieScale(data))
-		// 	.enter()
-		// 	.exit()
-		// 	.remove()
+		console.log(pieRaceData);
+
+		var pieRadius = Math.min(pieWidth, pieHeight) / 3;
+		
+		var pieScale = d3.pie()
+			.value(d => d.value)
+			.sort(null)
+
+		var piePath = d3.arc()
+			.outerRadius(pieRadius - 10)
+			.innerRadius(0); // Needed this to start the piechart at the center
+		
+		var pieChart = pieGroup.selectAll('pie')
+			.data(pieScale(pieRaceData))
+			.enter()
+			.append('g')
+				.attr('class', 'pie')
+
+		pieChart.append('path')
+			.attr('d', piePath)
+			.attr('fill', d => raceColor(d.data.key))
+			.on('mouseenter', d => highlight(d.data.key))
 	}
 }
 
@@ -100,3 +129,15 @@ function renderPieRaceLegend(d) {
 		.attr('dy', '0.32em')
 		.text(d => d.key);
 }
+
+
+
+
+
+function arcTween(a) {
+	var i = d3.interpolate(this._current, a);
+	this._current = i(0);
+	return function(t) {
+	  return arc(i(t));
+	};
+ }

@@ -41,6 +41,7 @@ function cleanData(err, data) {
 			shareBlack: data[i].share_black,
 			shareHispanic: data[i].share_hispanic,
 			shareWhite: data[i].share_white,
+			fullFip: data[i].state_fp+data[i].county_fp,
 		});
 
 	}
@@ -55,7 +56,6 @@ function cleanData(err, data) {
 	raceKeys = raceKeys.filter((d, i, self) => i === self.indexOf(d));
 
 	renderPie();
-
 }
 
 
