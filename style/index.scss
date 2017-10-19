@@ -68,6 +68,14 @@ p {
 	pointer-events: none;
 }
 
+.location {
+	transition: r .5s ease-in;
+
+	&.hide {
+		r: 0
+	}
+}
+
 /*=================
 === Filters styling
 =================*/
@@ -184,9 +192,9 @@ p {
 /*=================
 === Testing
 =================*/
-.hide {
-	display: none;
-}
+// .hide {
+// 	display: none;
+// }
 .hideC {
 	display: none;
 }

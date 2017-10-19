@@ -135,10 +135,10 @@ d3.json('data/us.json', function (error, us) {
 			newLocation.exit()
 				.transition()
 				.duration(transDur)
+				.ease(d3.easeBounce)
 				.attr('r', 0)
 				.remove()
 
-		
 		}
 });
 
@@ -172,18 +172,6 @@ function renderMapLegend() {
 			.text(d => d);
 }
 
-/*=================
-=== Grace to Razpudding: https://github.com/Razpudding/fed3-d3events/blob/master/index.js
-=================*/
-
-function highlight(select) {
-	d3.selectAll('.location')
-		.classed('hide', d => {
-			return d.race !== select;
-		});
-}
-
-
 
 /*=================
 === Setting our 
@@ -195,7 +183,6 @@ function showDetail(d) {
 }
 
 function getHtml(d) {
-	console.log(d);
 	return decodeURIComponent(`
 		<p>Victim: <span>${d.name}</span></p>
 		<p>Ethnicity: <span>${d.race}</span></p>

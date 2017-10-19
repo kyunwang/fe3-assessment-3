@@ -7,7 +7,7 @@ var raceKeys = []; // Array to save the races in
 var raceColor = d3.scaleOrdinal(d3.schemeCategory10); // Our color scale for the races
 var fipsCodes; // To save our fips info in
 
-var transDur = 1000;
+var transDur = 500;
 var transDelay = 50;
 
 

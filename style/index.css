@@ -53,6 +53,11 @@ p {
 .state-label {
   pointer-events: none; }
 
+.location {
+  transition: r .5s ease-in; }
+  .location.hide {
+    r: 0; }
+
 /*=================
 === Filters styling
 =================*/
@@ -137,9 +142,6 @@ p {
 /*=================
 === Testing
 =================*/
-.hide {
-  display: none; }
-
 .hideC {
   display: none; }
 

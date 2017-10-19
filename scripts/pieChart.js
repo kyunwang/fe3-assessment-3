@@ -45,6 +45,8 @@ function renderPie(newData) {
 		.attr('d', piePath)
 		.attr('fill', d => raceColor(d.data.key))
 		.on('mouseenter', d => showPieTip(d))
+		.on('mouseout', d => hidePieTip(d));
+		
 
 
 	/*=================
@@ -83,11 +85,48 @@ function renderPie(newData) {
 		pieChart.append('path')
 			.attr('d', piePath)
 			.attr('fill', d => raceColor(d.data.key))
-			.on('mouseenter', d => showPieTip(d))
-			.on('mouseout', d => hidePieTip(d))
+			.on('mouseenter', d => {
+				showPieTip(d);
+				pieMouseEnter(d);
+			})
+			.on('mouseout', d => {
+				hidePieTip(d);
+				pieMouseOut();
+			});
 		
 	}
 }
+
+
+
+function arcTween(a) {
+	var i = d3.interpolate(this._current, a);
+	this._current = i(0);
+	return function(t) {
+	  return arc(i(t));
+	};
+ }
+
+/*=================
+=== Handle mouse events
+=== Grace to Razpudding: https://github.com/Razpudding/fed3-d3events/blob/master/index.js
+=================*/
+
+function pieMouseEnter(d) {
+	d3.selectAll('.location')
+		.classed('hide', data => data.race !== d.data.key);
+}
+
+function pieMouseOut() {
+	d3.selectAll('.location')
+		.classed('hide', false);
+}
+
+
+
+/*=================
+=== Render piecahrt legend
+=================*/
 
 function renderPieRaceLegend(d) {
 	var legend = pieCon.append('g')
@@ -114,15 +153,6 @@ function renderPieRaceLegend(d) {
 }
 
 
-function arcTween(a) {
-	var i = d3.interpolate(this._current, a);
-	this._current = i(0);
-	return function(t) {
-	  return arc(i(t));
-	};
- }
-
-
 /*=================
 === Pie chart tooltip
 === Tooltip by grace of cmda-fe3: https://github.com/cmda-fe3/course-17-18/tree/master/site/class-4/tip
@@ -135,7 +165,6 @@ var pieTip = d3.tip()
 pieCon.call(pieTip);
 
 function showPieTip(d) {
-	console.log(d);
 	pieTip.html(getPieHtml(d)); // Set the content to be shown
 	pieTip.show();
 }
@@ -143,7 +172,6 @@ function showPieTip(d) {
 function hidePieTip(d) {
 	pieTip.hide();
 }
-
 
 function getPieHtml(d) {
 	if (d.data.percentage) return `
