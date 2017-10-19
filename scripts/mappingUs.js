@@ -26,8 +26,9 @@ d3.json('data/us.json', function (error, us) {
 	=== Creating the map
 	=================*/
 	// Creating the states
+	
 	states.selectAll('path')
-		.data(topojson.feature(us, us.objects.states).features)
+		.data(topojson.feature(us, us.objects.counties).features)
 		.enter()
 			.append('path')
 			.attr('d', mapPath)

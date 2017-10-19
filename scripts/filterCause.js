@@ -14,8 +14,10 @@ function filterCause(d) {
 
 
 function showDeathState(d) {
-	let me = cleanedData.filter(data => {
-		return parseInt(data.stateId, 10) === d.id;
+	// console.log(d);
+	let me = fipsCodes.filter(fips => {
+		return fips.totalFip == d.id;
 	});
 	console.log(me);
+	// console.log(fipsCodes);
 }

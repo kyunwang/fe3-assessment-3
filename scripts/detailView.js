@@ -15,6 +15,7 @@ mapCon.call(mapTip); // Bind it to mapCon
 
 function showMapTip(d) {
 	details.html(getHtml(d));
+	renderPie(d)
 
 	mapTip.html(getHtml(d));
 	mapTip.show();

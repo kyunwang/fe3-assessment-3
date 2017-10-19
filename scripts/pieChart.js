@@ -1,20 +1,33 @@
 
-
+var pieGroup = pieCon.append('g')
+	.attr('transform', `translate(${pieWidth / 2}, ${pieHeight / 2})`);
 
 // piechart: https://bl.ocks.org/mbostock/3887235
-function renderPie() {
+function renderPie(newData) {
 	// https://stackoverflow.com/questions/33852847/how-to-create-d3-pie-chart-with-percentage-from-non-number-values
 
 
-	var pieGroup = pieCon.append('g')
-		.attr('transform', `translate(${pieWidth / 2}, ${pieHeight / 2})`);
-
 		
 	// Nest the data on basis of the given key race and return the amount of race as value
-	var pieRaceData = d3.nest()
-		.key(d => d.race)
-		.rollup(d => d.length)
-		.entries(cleanedData);
+	if (newData) {
+		console.log('mew');
+		// var pieRaceData = newData;
+		var pieRaceData = d3.nest()
+			.key(d => {
+				console.log(d);
+				return d.shareWhite})
+			.entries(newData);
+			console.log(11, pieRaceData);
+
+			// Being compicated
+			return updatePie();
+	} else {
+		var pieRaceData = d3.nest()
+			.key(d => d.race)
+			.rollup(d => d.length)
+			.entries(cleanedData);
+			console.log(pieRaceData);
+	}
 
 
 	var pieRadius = Math.min(pieWidth, pieHeight) / 3;
@@ -51,6 +64,17 @@ function renderPie() {
 	// 	.text(function(d) { return d.data.key; });
 
 	// renderPieRaceLegend(pieRaceData);
+
+
+	function updatePie(data) {
+		console.log('hi');
+		console.log(pieRadius);
+		// pieChart.selectAll('pie')
+		// 	.data(pieScale(data))
+		// 	.enter()
+		// 	.exit()
+		// 	.remove()
+	}
 }
 
 function renderPieRaceLegend(d) {
@@ -75,9 +99,4 @@ function renderPieRaceLegend(d) {
 		.attr('y', 9.5)
 		.attr('dy', '0.32em')
 		.text(d => d.key);
-}
-
-function updatePie(data) {
-	pieChart.selectAll('pie')
-		.data(pieScale(data))
 }

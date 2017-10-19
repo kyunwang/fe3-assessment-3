@@ -13,7 +13,8 @@ var pieHeight = parseInt(pieCon.style('height'), 10);
 
 var raceKeys = []; 
 var raceColor = d3.scaleOrdinal(d3.schemeCategory10)
-var stateInfo = [];
+var fipsCodes;
+
 
 // Below are the global vars
 d3.csv('data/police_killings.csv', cleanData);
@@ -49,20 +50,28 @@ function cleanData(err, data) {
 
 	for(let i = 0; i < cleanedData.length; i++) {
 		raceKeys.push(cleanedData[i].race);
-		stateInfo.push({
-			stateId: cleanedData[i].stateId,
-			shareBlack: cleanedData[i].shareBlack,
-			shareHispanic: cleanedData[i].shareHispanic,
-			shareWhite: cleanedData[i].shareWhite,
-		});
 	}
 
 	raceKeys = raceKeys.filter((d, i, self) => i === self.indexOf(d));
 
-	console.log(stateInfo);
-
-
-
 	renderPie();
 
+}
+
+
+/*=================
+=== Getting the FIP codes of US
+=================*/
+d3.text('../data/us_fips.txt').get(getFips);
+function getFips(err, doc) {
+	fipsCodes = d3.csvParseRows(doc, map);
+	function map(d) {
+		return {
+			state: d[0],
+			stateId: d[1],
+			countyId: parseInt(d[2], 10), // Removing the 0's on the start
+			countyName: d[3],
+			totalFip: d[1]+d[2] // Get the totalfip statefip + countyfip
+		}
+	}
 }
