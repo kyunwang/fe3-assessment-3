@@ -81,7 +81,7 @@ d3.json('data/us.json', function (error, us) {
 			.attr('r', 4)
 			.attr('stroke-width', .3)
 			.attr('stroke', '#000')
-			.attr('fill', d => raceColor(d.race))
+			.attr('fill', d => raceColor[d.race])			
 			.on('mouseenter', d => {
 				showDetail(d);
 				renderPie(d);
@@ -126,12 +126,14 @@ d3.json('data/us.json', function (error, us) {
 					.attr('r', 4)
 					.attr('stroke-width', .3)
 					.attr('stroke', '#000')
-					.attr('fill', d => raceColor(d.race))
+					.attr('fill', d => raceColor[d.race]);
+					
 
 			// This we will do to the data that stays
 			newLocation.transition()
 				.duration(transDur)
 				.attr('r', 4)
+				.attr('fill', d => raceColor[d.race]);
 			
 			// The stuff we will do with the data that exits
 			newLocation.exit()
@@ -166,7 +168,7 @@ function renderMapLegend() {
 			.attr('x', mapWidth - 19)
 			.attr('width', 19)
 			.attr('height', 19)
-			.attr('fill', raceColor)
+			.attr('fill', d => raceColor[d]);
 	
 		legend.append('text')
 			.attr('class', 'mapLegend')

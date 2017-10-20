@@ -58,7 +58,7 @@ function renderPie(newData) {
 		.append('path')
 			.attr('class', 'pie')
 			.attr('d', piePath)
-			.attr('fill', d => raceColor(d.data.key))
+			.attr('fill', d => raceColor[d.data.key])
 			.on('mouseenter', d => {
 				showPieTip(d);
 				pieMouseEnter(d);
@@ -128,7 +128,7 @@ function renderPie(newData) {
 			.append('path')
 				.attr('class', 'pie')
 				.attr('d', piePath)
-				.attr('fill', d => raceColor(d.data.key))
+				.attr('fill', d => raceColor[d.data.key])
 				.on('mouseenter', d => {
 					showPieTip(d);
 					pieMouseEnter(d);
@@ -196,7 +196,7 @@ function renderPieRaceLegend(d) {
 		.attr('x', pieWidth - 19)
 		.attr('width', 19)
 		.attr('height', 19)
-		.attr('fill', d => raceColor(d.key))
+		.attr('fill', d => raceColor[d.key])
 
 	legend.append('text')
 		.attr('class', 'mapLegend')

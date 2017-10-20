@@ -4,7 +4,14 @@
 
 var cleanedData = []; // Our main array for all the data
 var raceKeys = []; // Array to save the races in
-var raceColor = d3.scaleOrdinal(d3.schemeCategory10); // Our color scale for the races
+var raceColor = {
+	Black: '#2678B2',
+	White: '#FD7F28',
+	'Hispanic/Latino': '#339F34',
+	Unknown: '#D42A2F',
+	'Asian/Pacific Islander': '#936ABB',
+	'Native American': '#8B564C'
+}
 var fipsCodes; // To save our fips info in
 
 var transDur = 500;
