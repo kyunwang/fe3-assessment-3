@@ -53,7 +53,7 @@ function renderPie(newData) {
 	var pieChart = pieGroup.selectAll('.pie')
 		.data(pieScale(pieRaceData));
 		
-		
+	// All  piechart transition code (the attrTween) from: http://bl.ocks.org/nadinesk/99393098950665c471e035ac517c2224
 	pieChart.enter()
 		.append('path')
 			.attr('class', 'pie')
