@@ -14,7 +14,7 @@ var transDelay = 50;
 /*=================
 === Getting the FIP codes of US
 =================*/
-d3.text('../data/us_fips.txt').get(getFips);
+d3.text('data/us_fips.txt').get(getFips);
 function getFips(err, doc) {
 	fipsCodes = d3.csvParseRows(doc, mapFips);
 	function mapFips(d) {
