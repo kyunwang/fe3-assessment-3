@@ -13,9 +13,10 @@ var resetPie = d3.select('.container-pie')
 	.on('click', renderPie)
 
 // Base for the piechart from: https://bl.ocks.org/mbostock/3887235
-function renderPie(newData) {
-		
+function renderPie(newData) {		
 	if (newData) {
+		pieGroup.selectAll('.pie').remove(); // Remove all pie's so that they do not stack with each other
+		
 		return updatePie();
 	} else {
 		// Nest the data on basis of the given key race and return the amount of race as value
@@ -24,7 +25,9 @@ function renderPie(newData) {
 			.key(d => d.race)
 			.rollup(d => d.length)
 			.entries(cleanedData);
-		pieTitle.text('Total death per ethnicity')
+		pieTitle.text('Total death per ethnicity');
+
+		pieGroup.selectAll('.pie').remove(); // Remove all pie's so that they do not stack with each other		
 	}
 
 	var pieRadius = Math.min(pieWidth, pieHeight) / 3;
@@ -41,28 +44,49 @@ function renderPie(newData) {
 	var pieChart = pieGroup.selectAll('.pie')
 		.data(pieScale(pieRaceData))
 		
-
+		
 	pieChart.enter()
-		.append('g')
+		.append('path')
 			.attr('class', 'pie')
-			.append('path')
-				.attr('d', piePath)
-				.attr('fill', d => raceColor(d.data.key))
-				.on('mouseenter', d => {
-					showPieTip(d);
-					pieMouseEnter(d);
-				})
-				.on('mouseout', d => {
-					hidePieTip(d);
-					pieMouseOut();
-				});
+			.attr('d', piePath)
+			.attr('fill', d => raceColor(d.data.key))
+			.on('mouseenter', d => {
+				showPieTip(d);
+				pieMouseEnter(d);
+			})
+			.on('mouseout', d => {
+				hidePieTip(d);
+				pieMouseOut();
+			})
 
-	pieChart.exit()
-		.transition()
-		.duration(transDur)
-		.attr('fill', 'red')
-		.remove()
-	
+			.transition()
+			.duration(transDur)
+			.attrTween('d', d => {
+				var i = d3.interpolate(d.startAngle + 0.1, d.endAngle);
+				return function (t) {
+					d.endAngle = i(t);
+					return piePath(d)
+				}
+			})
+
+		pieChart.selectAll('path')
+			.transition()
+			.duration(transDur)
+			.attrTween('d', d => {
+				var i = d3.interpolate(d.startAngle + 0.1, d.endAngle);
+				return function (t) {
+					d.endAngle = i(t);
+					return piePath(d)
+				}
+			})
+
+		pieChart.selectAll('path')
+			.exit()
+			.transition()
+			.duration(transDur)
+			.attr('fill', 'red')
+			.remove()
+
 		
 
 	/*=================
@@ -91,37 +115,46 @@ function renderPie(newData) {
 			.outerRadius(pieRadius - 10)
 			.innerRadius(0); // Needed this to start the piechart at the center
 		
-		var pieChart = pieGroup.selectAll('pie')
-			.data(pieScale(pieRaceData))
-		
-		pieChart.enter()
-			.append('g')
-				.attr('class', 'pie')
+		var pieChart = pieGroup.selectAll('.pie')
+			.data(pieScale(pieRaceData));
 
-		pieChart.append('path')
-			.attr('d', piePath)
-			.attr('fill', d => raceColor(d.data.key))
-			.on('mouseenter', d => {
-				showPieTip(d);
-				pieMouseEnter(d);
-			})
-			.on('mouseout', d => {
-				hidePieTip(d);
-				pieMouseOut();
-			});
+		pieChart.enter()
+			.append('path')
+				.attr('class', 'pie')
+				.attr('d', piePath)
+				.attr('fill', d => raceColor(d.data.key))
+				.on('mouseenter', d => {
+					showPieTip(d);
+					pieMouseEnter(d);
+				})
+				.on('mouseout', d => {
+					hidePieTip(d);
+					pieMouseOut();
+				})
+
+				.transition()
+				.duration(transDur)
+				.attrTween('d', d => {
+					var i = d3.interpolate(d.startAngle + 0.1, d.endAngle);
+					return function (t) {
+						d.endAngle = i(t);
+						return piePath(d)
+					}
+				})
 		
+		// When we update our data we do this
+		pieChart.transition()
+			.duration(transDur)
+			.attrTween('d', d => {
+				var i = d3.interpolate(d.startAngle + 0.1, d.endAngle);
+				return function (t) {
+					d.endAngle = i(t);
+					return piePath(d)
+				}
+			});
+
 	}
 }
-
-
-
-function arcTween(a) {
-	var i = d3.interpolate(this._current, a);
-	this._current = i(0);
-	return function(t) {
-	  return arc(i(t));
-	};
- }
 
 /*=================
 === Handle mouse events
@@ -137,7 +170,6 @@ function pieMouseOut() {
 	d3.selectAll('.location')
 		.classed('hide', false);
 }
-
 
 
 /*=================
