@@ -45,7 +45,7 @@ function clickZoom(d) {
  
 	// Added transitions back to the normal size
 	states.transition()
-		.duration(1000)
+		.duration(transDur)
 		.style('stroke-width', '1.5px')
 		.attr('transform', '');
 

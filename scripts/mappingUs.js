@@ -139,6 +139,8 @@ d3.json('data/us.json', function (error, us) {
 				.duration(transDur)
 				.ease(d3.easeBounce)
 				.attr('r', 0)
+				.transition() // Added to delay the .remove()
+				.duration(transDur)
 				.remove()
 
 		}
@@ -211,7 +213,7 @@ function highlightLoc(d) {
 	var radius = d3.event.target.attributes.r.value; // Getting the r value
 	d3.selectAll('.location')
 		.attr('r', data => {
-			if (radius == 4) return data === d ? '8' : '4'; // When not zoomed in
+			if (radius >= 4) return data === d ? '8' : '4'; // When not zoomed in
 			return data === d ? '2' : '.5'; // For when we are zommed in
 		});
 }
