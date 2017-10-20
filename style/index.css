@@ -10,6 +10,27 @@ body {
 p {
   margin: 0; }
 
+button {
+  flex: 1;
+  min-width: 5.5em;
+  margin: 0 .2em;
+  margin-bottom: 3px;
+  border: 1px solid gold;
+  border-radius: 2px;
+  padding: 0.3em;
+  background: transparent;
+  color: #fff;
+  transition: background-color .2s ease-in; }
+  button:hover {
+    background-color: gold;
+    color: #3a3a3a; }
+  button.active {
+    background-color: gold;
+    color: #3a3a3a; }
+
+/*=================
+=== General
+=================*/
 #map-con {
   height: 100%;
   width: 100%;
@@ -64,20 +85,6 @@ p {
 .container-filter {
   display: flex;
   flex-wrap: wrap; }
-  .container-filter > button {
-    flex: 1;
-    min-width: 5.5em;
-    margin: 0 .2em;
-    margin-bottom: 3px;
-    border: 1px solid gold;
-    border-radius: 2px;
-    padding: 0.3em;
-    background: transparent;
-    color: #fff;
-    transition: background-color .2s ease-in; }
-    .container-filter > button:hover {
-      background-color: gold;
-      color: #3a3a3a; }
 
 .location-detail {
   flex: 1;
@@ -105,9 +112,14 @@ p {
   flex: 1;
   border: 1px solid gold;
   border-radius: 2px; }
-  .container-pie > p {
-    margin: 0 .8em;
-    margin-top: .8em; }
+  .container-pie > div {
+    display: flex;
+    justify-content: space-between;
+    padding: 0 .8em;
+    padding-top: .8em; }
+  .container-pie button {
+    max-width: 3em;
+    max-height: 2em; }
 
 /*=================
 === Legend styling

@@ -6,7 +6,11 @@ var pieGroup = pieCon.append('g')
 	.attr('transform', `translate(${pieWidth / 2}, ${pieHeight / 2})`);
 
 var pieTitle = d3.select('.container-pie')
-	.select('p')
+	.select('p');
+
+var resetPie = d3.select('.container-pie')
+	.select('button')
+	.on('click', renderPie)
 
 // Base for the piechart from: https://bl.ocks.org/mbostock/3887235
 function renderPie(newData) {
@@ -23,7 +27,6 @@ function renderPie(newData) {
 		pieTitle.text('Total death per ethnicity')
 	}
 
-
 	var pieRadius = Math.min(pieWidth, pieHeight) / 3;
 
 	var pieScale = d3.pie()
@@ -37,17 +40,30 @@ function renderPie(newData) {
 
 	var pieChart = pieGroup.selectAll('.pie')
 		.data(pieScale(pieRaceData))
-		.enter()
-		.append('g')
-			.attr('class', 'pie')
-	
-	pieChart.append('path')
-		.attr('d', piePath)
-		.attr('fill', d => raceColor(d.data.key))
-		.on('mouseenter', d => showPieTip(d))
-		.on('mouseout', d => hidePieTip(d));
 		
 
+	pieChart.enter()
+		.append('g')
+			.attr('class', 'pie')
+			.append('path')
+				.attr('d', piePath)
+				.attr('fill', d => raceColor(d.data.key))
+				.on('mouseenter', d => {
+					showPieTip(d);
+					pieMouseEnter(d);
+				})
+				.on('mouseout', d => {
+					hidePieTip(d);
+					pieMouseOut();
+				});
+
+	pieChart.exit()
+		.transition()
+		.duration(transDur)
+		.attr('fill', 'red')
+		.remove()
+	
+		
 
 	/*=================
 	=== Updating our piechart
@@ -58,8 +74,7 @@ function renderPie(newData) {
 		} else {
 			pieTitle.text('County not found');
 		}
-		// pieTitle.html('hello')
-		// console.log(pieTitle);
+
 		var pieRaceData = [
 			{percentage: true, key: 'White', value: newData.shareWhite, countyPop: newData.countyPop},
 			{percentage: true, key: 'Hispanic/Latino', value: newData.shareHispanic, countyPop: newData.countyPop},
@@ -78,7 +93,8 @@ function renderPie(newData) {
 		
 		var pieChart = pieGroup.selectAll('pie')
 			.data(pieScale(pieRaceData))
-			.enter()
+		
+		pieChart.enter()
 			.append('g')
 				.attr('class', 'pie')
 
