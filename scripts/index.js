@@ -66,10 +66,12 @@ function cleanData(err, data) {
 	// Not super to do it like this but time contrains mate
 	cleanedData.columns = ['age', 'armed', 'cause', 'city', 'day', 'month', 'year', 'longLat', 'gender', 'lawEnfAgency', 'name', 'location', 'race', 'stateId', 'countyId', 'state', 'shareBlack', 'shareHispanic', 'shareWhite', 'fullFip', 'fipData', 'countyPop'];
 
+	// Getting all the race keys
 	for(let i = 0; i < cleanedData.length; i++) {
 		raceKeys.push(cleanedData[i].race);
 	}
 
+	// Filtering out all the duplicates
 	raceKeys = raceKeys.filter((d, i, self) => i === self.indexOf(d));
 
 	// Execute thee functions when our cleaning is done

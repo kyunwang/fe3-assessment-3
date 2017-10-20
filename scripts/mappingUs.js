@@ -1,6 +1,7 @@
 /*=================
 === For mapping the outline of the us
-=== source: http://duspviz.mit.edu/d3-workshop/examples/session4/example1.html
+=== source: http://bl.ocks.org/phil-pedruco/7745589
+=== us.json from http://duspviz.mit.edu/d3-workshop/examples/session4/example1.html
 ===
 === For labeling
 === source: https://bl.ocks.org/SuYoungHong/f4a4d387ead290850e58bf92a6c4dbb6
@@ -11,7 +12,6 @@ var mapHeight = parseInt(mapCon.style('height'), 10);
 
 var states = mapCon.append('g')
 	.attr('class', 'states');
-
 
 // To enable plotting with coordinates
 var projection = d3.geoMercator();

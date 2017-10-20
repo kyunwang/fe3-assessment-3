@@ -93,7 +93,6 @@ function renderPie(newData) {
 			.exit()
 			.transition()
 			.duration(transDur)
-			.attr('fill', 'red')
 			.remove()
 
 		
@@ -182,7 +181,7 @@ function pieMouseOut() {
 /*=================
 === Render piecahrt legend
 =================*/
-
+// Not used anymore
 function renderPieRaceLegend(d) {
 	var legend = pieCon.append('g')
 		.attr('class', 'legend')

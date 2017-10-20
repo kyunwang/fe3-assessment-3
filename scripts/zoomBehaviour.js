@@ -32,7 +32,7 @@ function clickZoom(d) {
 		 .attr('transform', 'translate(' + translate + ')scale(' + scale + ')');
 
 	// Added a transition for readability/lookability??
-	states.selectAll('circle')
+	states.selectAll('.location')
 		.transition()
 		.duration(transDur)
 		.attr('r', .5)
@@ -49,7 +49,7 @@ function clickZoom(d) {
 		.style('stroke-width', '1.5px')
 		.attr('transform', '');
 
-	states.selectAll('circle')
+	states.selectAll('.location')
 		.transition()
 		.duration(transDur)
 		.attr('r', 4)
