@@ -5,10 +5,10 @@ See [changes](changes.md) to see code changes
 
 ![preview image][previewUrl]
 
-This is a visualization using D3.js plotting the amount of death by policemen in the United Stated in the period from the start of 2015 till June 2 of 2015.
+This is a visualisation using D3.js plotting the amount of death by policemen in the United Stated in the period from the start of 2015 till June 2 of 2015.
 
 ## Description
-This is a visualization showing the amounts deaths caused by the police in the United States. In this assignment I tried to implemment D3 features I had not used before. Like a interactive map and piechart.
+This is a visualisation showing the amounts deaths caused by the police in the United States. In this assignment I tried to implemment D3 features I had not used before. Like a interactive map and piechart.
 
 **Used:**
 - D3.js
@@ -26,6 +26,7 @@ The coordinates/outline paths from the U.S. came from [duspviz][mapSource]
 The [FIPS][fipsData] from U.S. came from [census][fipsSource]
 
 Our main data contains:
+
 Header | Description | Source
 ---|-----------|----
 `name` | Name of deceased | Guardian
