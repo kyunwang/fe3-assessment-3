@@ -129,16 +129,6 @@ button {
 	span {
 		font-weight: 300;
 	}
-	// background: red;
-	// height: 200px;
-	// width: 200px
-}
-
-.imagePl {
-	/* width:  */
-	margin-top: 1em;
-	height: 5em;
-	border: 1px solid gold;
 }
 
 /*=================
@@ -158,7 +148,10 @@ button {
 	}
 	button {
 		max-width: 3em;
-		max-height: 2em
+		// max-height: 2em
+		&.hide {
+			display: none;
+		}
 	}
 }
 
@@ -196,17 +189,4 @@ button {
 	fill: #fff;
 	font-weight: 700;
 	font-size: .7em;
-}
-
-
-
-
-/*=================
-=== Testing
-=================*/
-// .hide {
-// 	display: none;
-// }
-.hideC {
-	display: none;
 }

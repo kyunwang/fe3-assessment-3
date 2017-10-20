@@ -1,6 +1,7 @@
 var pieCon = d3.select('#pie-con');
 var pieWidth = parseInt(pieCon.style('width'), 10);
 var pieHeight = parseInt(pieCon.style('height'), 10);
+var pieRadius = Math.min(pieWidth, pieHeight) / 2;
 
 var pieGroup = pieCon.append('g')
 	.attr('transform', `translate(${pieWidth / 2}, ${pieHeight / 2})`);
@@ -12,11 +13,18 @@ var resetPie = d3.select('.container-pie')
 	.select('button')
 	.on('click', renderPie)
 
-// Base for the piechart from: https://bl.ocks.org/mbostock/3887235
+/*=================
+=== Base for the piechart from: https://bl.ocks.org/mbostock/3887235
+=== All interactions are added by myself if not said otherwise
+=================*/
 function renderPie(newData) {		
 	if (newData) {
 		pieGroup.selectAll('.pie').remove(); // Remove all pie's so that they do not stack with each other
-		
+
+		// Show the reset to ethnicity btn
+		resetPie.classed('hide', false)
+			.text('Reset chart')
+
 		return updatePie();
 	} else {
 		// Nest the data on basis of the given key race and return the amount of race as value
@@ -25,12 +33,13 @@ function renderPie(newData) {
 			.key(d => d.race)
 			.rollup(d => d.length)
 			.entries(cleanedData);
-		pieTitle.text('Total death per ethnicity');
 
-		pieGroup.selectAll('.pie').remove(); // Remove all pie's so that they do not stack with each other		
+		pieTitle.text('Total death per ethnicity');
+		pieGroup.selectAll('.pie').remove(); // Remove all pie's so that they do not stack with each other	
+		
+		resetPie.classed('hide', true); // Hide the reset button
 	}
 
-	var pieRadius = Math.min(pieWidth, pieHeight) / 3;
 
 	var pieScale = d3.pie()
 		.value(d => d.value)
@@ -42,7 +51,7 @@ function renderPie(newData) {
 
 
 	var pieChart = pieGroup.selectAll('.pie')
-		.data(pieScale(pieRaceData))
+		.data(pieScale(pieRaceData));
 		
 		
 	pieChart.enter()
@@ -105,8 +114,6 @@ function renderPie(newData) {
 			{percentage: true, key: 'Black', value: newData.shareBlack, countyPop: newData.countyPop}
 		]
 
-		var pieRadius = Math.min(pieWidth, pieHeight) / 3;
-		
 		var pieScale = d3.pie()
 			.value(d => d.value)
 			.sort(null)
@@ -138,7 +145,7 @@ function renderPie(newData) {
 					var i = d3.interpolate(d.startAngle + 0.1, d.endAngle);
 					return function (t) {
 						d.endAngle = i(t);
-						return piePath(d)
+						return piePath(d);
 					}
 				})
 		
@@ -149,7 +156,7 @@ function renderPie(newData) {
 				var i = d3.interpolate(d.startAngle + 0.1, d.endAngle);
 				return function (t) {
 					d.endAngle = i(t);
-					return piePath(d)
+					return piePath(d);
 				}
 			});
 

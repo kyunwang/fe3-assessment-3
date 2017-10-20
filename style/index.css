@@ -99,12 +99,6 @@ button {
   .location-detail span {
     font-weight: 300; }
 
-.imagePl {
-  /* width:  */
-  margin-top: 1em;
-  height: 5em;
-  border: 1px solid gold; }
-
 /*=================
 === Piechart
 =================*/
@@ -118,8 +112,9 @@ button {
     padding: 0 .8em;
     padding-top: .8em; }
   .container-pie button {
-    max-width: 3em;
-    max-height: 2em; }
+    max-width: 3em; }
+    .container-pie button.hide {
+      display: none; }
 
 /*=================
 === Legend styling
@@ -150,11 +145,5 @@ button {
   fill: #fff;
   font-weight: 700;
   font-size: .7em; }
-
-/*=================
-=== Testing
-=================*/
-.hideC {
-  display: none; }
 
 /*# sourceMappingURL=index.css.map */
